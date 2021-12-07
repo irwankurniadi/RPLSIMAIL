@@ -20,8 +20,8 @@ class dashboardController extends Controller
         $sp = DB::select("SELECT * FROM s_person");
         $csp = count($sp);
 
-        // $skeg = DB::select("SELECT * FROM s_person");
-        // $cskeg = count($skeg);
+        $skeg = DB::select("SELECT * FROM s_ket");
+        $cskeg = count($skeg);
         
         $dft = DB::select("SELECT * FROM dft_hadir");
         $cdft = count($dft);
@@ -35,9 +35,17 @@ class dashboardController extends Controller
         if($_SESSION['role'] == "admin"){
             return view('admin/dashadmin', ['sp' => $csp, 'dft' => $cdft, 'st' => $cskdek, 'ba' => $cba]);
         }else if($_SESSION['role'] == "mahasiswa"){
-            return view('mahasiswa/dashmhs', ['sp' => $csp, 'dft' => $cdft, 'st' => $cskdek, 'ba' => $cba]);
+            $sketm = DB::select("SELECT * FROM s_ket WHERE id_user = '".$_SESSION['id']."'");
+            $csketm = count($sketm);
+            $skdek = DB::select("SELECT * FROM sk_dekan WHERE id_user = '".$_SESSION['id']."'");
+            $cskdek = count($skdek);
+            return view('mahasiswa/dashmhs', ['st' => $cskdek, 'sket' => $csketm]);
         }else{
-            return view('dosen/dashds', ['sp' => $csp, 'dft' => $cdft, 'st' => $cskdek, 'ba' => $cba]);
+            $sketd = DB::select("SELECT * FROM s_ket WHERE id_user = '".$_SESSION['id']."'");
+            $cskted = count($sketd);
+            $skdek = DB::select("SELECT * FROM sk_dekan WHERE id_user = '".$_SESSION['id']."'");
+            $cskdek = count($skdek);
+            return view('mahasiswa/dashmhs', ['st' => $cskdek, 'sket' => $csketd]);
         }
     }
 }

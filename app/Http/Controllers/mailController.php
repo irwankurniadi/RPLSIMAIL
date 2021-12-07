@@ -51,14 +51,16 @@ class mailController extends Controller
 
             $df = DB::select("SELECT * FROM dft_hadir WHERE id_user = '".$_SESSION['id']."'");
 
-            $sk = DB::select("SELECT * FROM sk_dekan WHERE id_user = '".$_SESSION['id']."'");
+            $st = DB::select("SELECT * FROM sk_dekan WHERE id_user = '".$_SESSION['id']."'");
+
+            $sk = DB::select("SELECT * FROM s_ket WHERE id_user = '".$_SESSION['id']."'");
 
         if($_SESSION['role'] == "admin"){
-            return view('admin/mailout', ['sp' => $sp, 'ba' => $ba, 'df' => $df, 'sk' => $sk]);
+            return view('admin/mailout', ['sp' => $sp, 'ba' => $ba, 'df' => $df, 'sk' => $sk, 'st' => $st]);
         }else if($_SESSION['role'] == "mahasiswa"){
-            return view('mahasiswa/mailout', ['sp' => $sp, 'ba' => $ba, 'df' => $df, 'sk' => $sk]);
+            return view('mahasiswa/mailout', ['sk' => $sk, 'st' => $st]);
         }else{
-            return view('dosen/mailout', ['sp' => $sp, 'ba' => $ba, 'df' => $df, 'sk' => $sk]);
+            return view('dosen/mailout', ['ba' => $ba, 'st' => $st, 'sk' => $sk]);
         }
     }
 
@@ -88,8 +90,21 @@ class mailController extends Controller
         return redirect('/mailin');
     }
     function decline(){
+        $tp = $_GET['type'];
+        if($tp==md5('sp')){
+            $srt = "s_person";
+        }else if($tp==md5('sk')){
+            $srt = "s_ket";
+        }else if($tp==md5('st')){
+            $srt = "sk_dekan";
+        }else if($tp==md5('dft')){
+            $srt = "dft_hadir";
+        }else if($tp==md5('ba')){
+            $srt = "b_acara";
+        }
+        $al = $_POST['dc'];
         DB::update(
-            "UPDATE surat SET status = 'Declined' WHERE id_surat = ?",
+            "UPDATE $srt SET status = 'Declined', alasan = '$al' WHERE id_surat = ?",
             [$_GET['id']]
         );
         return redirect('/mailin');
@@ -160,7 +175,6 @@ class mailController extends Controller
         if($dbs=="s_person"){
             $id = $_POST['id'];
             $pp = $_POST['pp'];
-            $lam = $_POST['lam'];
             $tgl = $_POST['tgl'];
             $at = $_POST['at'];
             $lok = $_POST['lok'];
@@ -168,10 +182,7 @@ class mailController extends Controller
             $ids = $_POST['ids'];
             $idn = $_POST['idn'];
 
-            DB::insert("INSERT INTO $dbs (id_user, tgl, hal, lamp, n_mitra, al_mitra, isi, id_ttd, nama_ttd, status) values (?,?,?,?,?,?,?,?,?,?)", [$id, "$tgl", "$pp", $lam, "$at", "$lok", "$desc", $ids, "$idn", 'On Process']);
-
-            $dbsel = DB::select("SELECT * FROM $dbs");
-            echo json_encode($dbsel);
+            DB::insert("INSERT INTO $dbs (id_user, tgl, hal, n_mitra, al_mitra, isi, status) values (?,?,?,?,?,?,?)", [$id, "$tgl", "$pp", "$at", "$lok", "$desc", 'On Process']);
         }else if($dbs=="b_acara"){
             $id = $_POST['id'];
             $tgl = $_POST['tgl'];
@@ -183,25 +194,42 @@ class mailController extends Controller
             $sign2 = $_POST['sign2'];
 
             DB::insert("INSERT INTO $dbs (id_user, tgl, tema, nama_acara, tempat, keterangan, nama_ttd_1, nama_ttd_2, status) values (?,?,?,?,?,?,?,?,?)", [$id, "$tgl", "$et", $en, "$lok", "$desc", $sign1, "$sign2", 'On Process']);
-
-            $dbsel = DB::select("SELECT * FROM $dbs");
-            echo json_encode($dbsel);
         }else if($dbs=="dft_hadir"){
             $id = $_POST['id'];
             $tgl = $_POST['tgl'];
             $en = $_POST['nm_e'];
+            $st = $_POST['stime'];
+            $et = $_POST['etime'];
             $lok = $_POST['lok'];
-            $desc = $_POST['desc'];
-            $sign1 = $_POST['sign1'];
-            $sign2 = $_POST['sign2'];
+            $guest = $_POST['guest'];
+            $evman = $_POST['evman'];
 
-            DB::insert("INSERT INTO $dbs (id_user, tgl, tema, nama_acara, tempat, keterangan, nama_ttd_1, nama_ttd_2, status) values (?,?,?,?,?,?,?,?,?)", [$id, "$tgl", "$et", $en, "$lok", "$desc", $sign1, "$sign2", 'On Process']);
-
-            $dbsel = DB::select("SELECT * FROM $dbs");
-            echo json_encode($dbsel);
+            DB::insert("INSERT INTO $dbs (id_user, tgl, jam, nama_acara, tempat, pembicara, nama_ttd, status) values (?,?,?,?,?,?,?,?,?)", [$id, "$tgl", "$st."-".$et", $en, "$lok", "$guest", $evman, "$sign2", 'On Process']);
         }
-        
-        // return redirect('/mailout');
-        return view('admin/isiform');
+        else if($dbs=="s_ket"){
+            $id = $_POST['id'];
+            $tgl = $_POST['tgl'];
+            $sem = $_POST['sem'];
+            $maj = $_POST['maj'];
+            $fac = $_POST['fac'];
+
+            DB::insert("INSERT INTO $dbs (id_user, tgl, sem, prodi, fakult, status) values (?,?,?,?,?,?)", [$id, "$tgl", "$sem", "$maj", "$fac", 'On Process']);
+        }
+        else if($dbs=="sk_dekan"){
+            if($_SESSION['role']=="admin"){
+                $id = $_POST['id'];
+            }else {
+                $id = $_SESSION['id'];
+            }
+            $req = $_POST['req'];
+            $ad = $_POST['desc'];
+            $st = $_POST['tgls'];
+            $et = $_POST['tgle'];
+            $ev = $_POST['ev'];
+            $lok = $_POST['lok'];
+
+            DB::insert("INSERT INTO $dbs (id_user, pemohon, keterangan, tgl_mulai, tgl_sls, acara, tempat, status) values (?,?,?,?,?,?,?,?)", [$id, "$req", "$ad", "$st","$et", $ev, "$lok", 'On Process']);
+        }
+        return redirect('/mailout');
     }
 }

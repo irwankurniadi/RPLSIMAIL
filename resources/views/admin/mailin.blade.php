@@ -199,7 +199,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th style="width:130px">Applicant ID</th>
-                        <th>Addressed to</th>
+                        <th>Mail Type</th>
                         <th>Date</th>
                         <th>Event</th>
                         <th>Status</th>
@@ -210,7 +210,7 @@
                     @foreach ($sp as $s)
                     <tr>
                         <td>{{ $s->id_user }}</td>
-                        <td>{{ $s->n_mitra }} {{ $s->al_mitra }}</td>
+                        <td>Personal Mail</td>
                         <td><?php $tgl = date_create($s->tgl);
                                 echo date_format( $tgl, 'd/M/Y') ?></td>
                         <td>{{ $s->hal }}</td>
@@ -229,14 +229,37 @@
                         <td>
                             <a href="/review?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
                             <a href="/accept?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-success ml-2 mr-2" title="Accept"><i class="fas fa-check-square"></i></a>
-                            <a href="/decline?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-danger" title="Decline"><i class="fas fa-times"></i></i></a>
+                            <button type="button" class="btn btn-danger btn-sm" title="Decline"data-toggle="modal" data-target="#exampleModal">
+                            <i class="fas fa-times"></i>
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Decline Mail</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="/decline?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <textarea class="input" name="dc" rows="5" cols="60" wrap="soft" style="overflow:hidden; resize:none; border-radius:5px" placeholder="  Enter the reason for decline this mail"></textarea>
+                                    </div>
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Submit">
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
                     @foreach ($ba as $b)
                     <tr>
                         <td>{{ $b->id_user }}</td>
-                        <td>{{ $b->nama_ttd_1 }} & {{ $b->nama_ttd_2 }}</td>
+                        <td>News Mail</td>
                         <td><?php $tglba = date_create($b->tgl);
                                 echo date_format( $tglba , 'd M Y') ?></td>
                         <td>{{ $b->nama_acara }}</td>
@@ -255,14 +278,37 @@
                         <td>
                             <a href="/review?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
                             <a href="/accept?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-success ml-2 mr-2" title="Accept"><i class="fas fa-check-square"></i></a>
-                            <a href="/decline?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-danger" title="Decline"><i class="fas fa-times"></i></i></a>
+                            <button type="button" class="btn btn-danger btn-sm" title="Decline"data-toggle="modal" data-target="#exampleModal">
+                            <i class="fas fa-times"></i>
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Decline Mail</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="/decline?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <textarea class="input" name="dc" rows="5" cols="60" wrap="soft" style="overflow:hidden; resize:none; border-radius:5px" placeholder="  Enter the reason for decline this mail"></textarea>
+                                    </div>
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Submit">
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
                     @foreach ($df as $d)
                     <tr>
                         <td>{{ $d->id_user }}</td>
-                        <td>{{ $d->nama_ttd }}</td>
+                        <td>Attendance Mail</td>
                         <td><?php $tgldf = date_create($d->tgl);
                                 echo date_format( $tgldf , 'd M Y') ?></td>
                         <td>{{ $d->nama_acara }}</td>
@@ -281,16 +327,47 @@
                         <td>
                             <a href="/review?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
                             <a href="/accept?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}" class="btn btn-sm btn-success ml-2 mr-2" title="Accept"><i class="fas fa-check-square"></i></a>
-                            <a href="/decline?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}" class="btn btn-sm btn-danger" title="Decline"><i class="fas fa-times"></i></i></a>
+                            <button type="button" class="btn btn-danger btn-sm" title="Decline"data-toggle="modal" data-target="#exampleModal">
+                            <i class="fas fa-times"></i>
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Decline Mail</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="/decline?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <textarea class="input" name="dc" rows="5" cols="60" wrap="soft" style="overflow:hidden; resize:none; border-radius:5px" placeholder="  Enter the reason for decline this mail"></textarea>
+                                    </div>
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Submit">
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
                     @foreach ($sk as $k)
                     <tr>
                         <td>{{ $k->pemohon }}</td>
-                        <td>{{ $k->nama_ttd }}</td>
-                        <td><?php $tglk = date_create($k->tgl_mulai);
-                                echo date_format( $tglk , 'd M Y') ?></td>
+                        <td>Assignment Mail</td>
+                        <td><?php 
+                                $tgls = date_create($k->tgl_mulai);
+                                $tgle = date_create($k->tgl_sls);
+                                if($tgls != $tgle){
+                                    echo date_format( $tgls , 'd')." - ".date_format( $tgle , 'd M Y');
+                                }else {
+                                    echo date_format( $tgls , 'd M Y') ;
+                                }
+                            ?>
+                        </td>
                         <td>{{ $k->acara }}</td>
                         <td><a type="button" class="btn 
                             <?php 
@@ -325,11 +402,8 @@
                                     <div class="form-group">
                                         <textarea class="input" name="dc" rows="5" cols="60" wrap="soft" style="overflow:hidden; resize:none; border-radius:5px" placeholder="  Enter the reason for decline this mail"></textarea>
                                     </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                                     <input type="submit" class="btn btn-danger btn-sm" value="Submit">
+                                    </form>
                                 </div>
                                 </div>
                             </div>

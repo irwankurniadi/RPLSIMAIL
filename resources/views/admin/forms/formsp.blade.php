@@ -201,7 +201,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
             <input type="hidden" name="dbs" id="dbs" value="s_person">
             <div class="form-group" id="applicant">
                 <label for="date">Applicant ID</label>
-                <input type="text" class="form-control mb-1" name="id" id="id" placeholder="Student ID">
+                <input type="text" class="form-control mb-1" name="id" id="id" placeholder="Applicant ID">
             </div>
             <div class="form-group">
                 <label for="date">Purpose </label>

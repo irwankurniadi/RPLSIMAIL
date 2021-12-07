@@ -184,8 +184,8 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No. </th>
+                        <th>Mail Type</th>
                         <th>Applicant ID</th>
-                        <th>Addressed to</th>
                         <th>Date</th>
                         <th>Case</th>
                         <th>Status</th>
@@ -193,120 +193,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($sp as $s)
-                    <tr>
-                        <td style="width:130px"><?php 
-                            if(!empty($s->no_surat)){
-                                if($s->no_surat<10){
-                                    echo "00".$s->no_surat ."/D/FTI/2021";
-                                }else if($s->no_surat=10&&$s->no_surat<100){
-                                    echo "0".$s->no_surat ."/D/FTI/2021";
-                                }else{
-                                    echo $s->no_surat ."/D/FTI/2021";
-                                }
-                            }?></td>
-                        <td>{{ $s->id_user }}</td>
-                        <td>{{ $s->n_mitra }} {{ $s->al_mitra }}</td>
-                        <td><?php $tgl = date_create($s->tgl);
-                                echo date_format( $tgl, 'd M Y') ?></td>
-                        <td>{{ $s->hal }}</td>
-                        <td><a type="button" class="btn 
-                            <?php 
-                            if($s->status=="Done"){
-                                echo "btn-primary text-white";
-                            }else if($s->status=="Accepted"){
-                                echo "btn-success text-white";
-                            }else if($s->status=="Declined"){
-                                echo "btn-danger text-white";
-                            }else if($s->status=="On Process"){
-                                echo "btn-warning";
-                            }
-                            ?> btn-sm" style="border-radius:25px"><?php echo $s->status ?></td>
-                        <td>
-                            <a href="/review?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <?php if($s->status=="Done"){?>
-                            <a href="/download?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-primary"><i class="fas fa-download"></i></a>
-                            <?php
-                            }?>
-                        </td>
-                    </tr>
-                    @endforeach
-                    @foreach ($ba as $b)
-                    <tr>
-                        <td style="width:130px"><?php 
-                            if(!empty($b->no_surat)){
-                                if($b->no_surat<10){
-                                    echo "00".$b->no_surat ."/D/FTI/2021";
-                                }else if($b->no_surat=10&&$b->no_surat<100){
-                                    echo "0".$b->no_surat ."/D/FTI/2021";
-                                }else{
-                                    echo $b->no_surat ."/D/FTI/2021";
-                                }
-                            }?></td></td>
-                        <td>{{ $b->id_user }}</td>
-                        <td>{{ $b->nama_ttd_1 }} & {{ $b->nama_ttd_2 }}</td>
-                        <td><?php $tglba = date_create($b->tgl);
-                                echo date_format( $tglba , 'd M Y') ?></td>
-                        <td>{{ $b->nama_acara }}</td>
-                        <td><a type="button" class="btn 
-                            <?php 
-                            if($b->status=="Done"){
-                                echo "btn-primary text-white";
-                            }else if($b->status=="Accepted"){
-                                echo "btn-success text-white";
-                            }else if($b->status=="Declined"){
-                                echo "btn-danger text-white";
-                            }else if($b->status=="On Process"){
-                                echo "btn-warning";
-                            }
-                            ?> btn-sm" style="border-radius:25px"><?php echo $b->status ?></td>
-                        <td>
-                            <a href="/review?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <?php if($b->status=="Done"){?>
-                            <a href="/download?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-primary"><i class="fas fa-download"></i></a>
-                            <?php
-                            }?>
-                        </td>
-                    </tr>
-                    @endforeach
-                    @foreach ($df as $d)
-                    <tr>
-                        <td style="width:130px"><?php 
-                            if(!empty($d->no_surat)){
-                                if($d->no_surat<10){
-                                    echo "00".$d->no_surat ."/D/FTI/2021";
-                                }else if($d->no_surat=10&&$d->no_surat<100){
-                                    echo "0".$d->no_surat ."/D/FTI/2021";
-                                }else{
-                                    echo $d->no_surat ."/D/FTI/2021";
-                                }
-                            }?></td></td>
-                        <td>{{ $d->id_user }}</td>
-                        <td>{{ $d->nama_ttd }}</td>
-                        <td><?php $tgldf = date_create($d->tgl);
-                                echo date_format( $tgldf , 'd M Y') ?></td>
-                        <td>{{ $d->nama_acara }}</td>
-                        <td><a type="button" class="btn 
-                            <?php 
-                            if($d->status=="Done"){
-                                echo "btn-primary text-white";
-                            }else if($d->status=="Accepted"){
-                                echo "btn-success text-white";
-                            }else if($d->status=="Declined"){
-                                echo "btn-danger text-white";
-                            }else if($d->status=="On Process"){
-                                echo "btn-warning";
-                            }
-                            ?> btn-sm" style="border-radius:25px"><?php echo $d->status ?></td>
-                        <td>
-                            <a href="/review?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <?php if($d->status=="Done"){?>
-                            <a href="/download?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}" class="btn btn-sm btn-primary"><i class="fas fa-download"></i></a>
-                            <?php
-                            }?>
-                        </td>
-                    </tr>
-                    @endforeach
                     @foreach ($sk as $k)
                     <tr>
                         <td style="width:130px"><?php 
@@ -318,9 +204,9 @@
                                 }else{
                                     echo $k->no_surat ."/D/FTI/2021";
                                 }
-                            }?></td></td>
+                            }?></td>
+                        <td>Assignment Mail</td>
                         <td>{{ $k->pemohon }}</td>
-                        <td>{{ $k->nama_ttd }}</td>
                         <td><?php $tglk = date_create($k->tgl_mulai);
                                 echo date_format( $tglk , 'd M Y') ?></td>
                         <td>{{ $k->acara }}</td>
@@ -340,6 +226,44 @@
                             <a href="/review?type=<?php echo md5('sk')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
                             <?php if($k->status=="Done"){?>
                             <a href="/download?type=<?php echo md5('sk')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-primary"><i class="fas fa-download"></i></a>
+                            <?php
+                            }?>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @foreach ($st as $t)
+                    <tr>
+                        <td style="width:130px"><?php 
+                            if(!empty($t->no_surat)){
+                                if($t->no_surat<10){
+                                    echo "00".$t->no_surat ."/D/FTI/2021";
+                                }else if($t->no_surat=10&&$t->no_surat<100){
+                                    echo "0".$t->no_surat ."/D/FTI/2021";
+                                }else{
+                                    echo $t->no_surat ."/D/FTI/2021";
+                                }
+                            }?></td>
+                        <td>Activity Mail</td>
+                        <td>{{ $t->pemohon }}</td>
+                        <td><?php $tglt = date_create($t->tgl_mulai);
+                                echo date_format( $tglt , 'd M Y') ?></td>
+                        <td>{{ $t->acara }}</td>
+                        <td><a type="button" class="btn 
+                            <?php 
+                            if($t->status=="Done"){
+                                echo "btn-primary text-white";
+                            }else if($t->status=="Accepted"){
+                                echo "btn-success text-white";
+                            }else if($t->status=="Declined"){
+                                echo "btn-danger text-white";
+                            }else if($t->status=="On Process"){
+                                echo "btn-warning";
+                            }
+                            ?> btn-sm" style="border-radius:25px"><?php echo $t->status ?></td>
+                        <td>
+                            <a href="/review?type=<?php echo md5('st')?>&id={{ $t->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <?php if($t->status=="Done"){?>
+                            <a href="/download?type=<?php echo md5('st')?>&id={{ $t->id_surat }}" class="btn btn-sm btn-primary"><i class="fas fa-download"></i></a>
                             <?php
                             }?>
                         </td>

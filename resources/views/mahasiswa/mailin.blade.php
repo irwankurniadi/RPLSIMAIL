@@ -184,7 +184,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th style="width:130px">Applicant ID</th>
-                        <th>Addressed to</th>
+                        <th>Signer</th>
                         <th>Date</th>
                         <th>Event</th>
                         <th>Status</th>
@@ -192,81 +192,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($sp as $s)
-                    <tr>
-                        <td>{{ $s->id_user }}</td>
-                        <td>{{ $s->n_mitra }} {{ $s->al_mitra }}</td>
-                        <td><?php $tgl = date_create($s->tgl);
-                                echo date_format( $tgl, 'd/M/Y') ?></td>
-                        <td>{{ $s->hal }}</td>
-                        <td><a type="button" class="btn 
-                            <?php 
-                            if($s->status=="Done"){
-                                echo "btn-primary text-white";
-                            }else if($s->status=="Accepted"){
-                                echo "btn-success text-white";
-                            }else if($s->status=="Declined"){
-                                echo "btn-danger text-white";
-                            }else if($s->status=="On Process"){
-                                echo "btn-warning";
-                            }
-                            ?> btn-sm" style="border-radius:25px"><?php echo $s->status ?></td>
-                        <td>
-                            <a href="/review?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <a href="/download?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-primary ml-2 mr-2" title="Download"><i class="fas fa-download"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach
-                    @foreach ($ba as $b)
-                    <tr>
-                        <td>{{ $b->id_user }}</td>
-                        <td>{{ $b->nama_ttd_1 }} & {{ $b->nama_ttd_2 }}</td>
-                        <td><?php $tglba = date_create($b->tgl);
-                                echo date_format( $tglba , 'd M Y') ?></td>
-                        <td>{{ $b->nama_acara }}</td>
-                        <td><a type="button" class="btn 
-                            <?php 
-                            if($b->status=="Done"){
-                                echo "btn-primary text-white";
-                            }else if($b->status=="Accepted"){
-                                echo "btn-success text-white";
-                            }else if($b->status=="Declined"){
-                                echo "btn-danger text-white";
-                            }else if($b->status=="On Process"){
-                                echo "btn-warning";
-                            }
-                            ?> btn-sm" style="border-radius:25px"><?php echo $b->status ?></td>
-                        <td>
-                            <a href="/review?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <a href="/download?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-primary ml-2 mr-2" title="Download"><i class="fas fa-download"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach
-                    @foreach ($df as $d)
-                    <tr>
-                        <td>{{ $d->id_user }}</td>
-                        <td>{{ $d->nama_ttd }}</td>
-                        <td><?php $tgldf = date_create($d->tgl);
-                                echo date_format( $tgldf , 'd M Y') ?></td>
-                        <td>{{ $d->nama_acara }}</td>
-                        <td><a type="button" class="btn 
-                            <?php 
-                            if($d->status=="Done"){
-                                echo "btn-primary text-white";
-                            }else if($d->status=="Accepted"){
-                                echo "btn-success text-white";
-                            }else if($d->status=="Declined"){
-                                echo "btn-danger text-white";
-                            }else if($d->status=="On Process"){
-                                echo "btn-warning";
-                            }
-                            ?> btn-sm" style="border-radius:25px"><?php echo $d->status ?></td>
-                        <td>
-                            <a href="/review?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <a href="/download?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}" class="btn btn-sm btn-primary ml-2 mr-2" title="Download"><i class="fas fa-download"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach
                     @foreach ($sk as $k)
                     <tr>
                         <td>{{ $k->pemohon }}</td>

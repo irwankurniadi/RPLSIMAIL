@@ -26,7 +26,7 @@ Route::get('/mailout', [App\Http\Controllers\mailController::class, 'mailout']);
 
 Route::get('/review', [App\Http\Controllers\mailController::class, 'review']);
 Route::get('/accept', [App\Http\Controllers\mailController::class, 'accept']);
-Route::get('/decline', [App\Http\Controllers\mailController::class, 'decline']);
+Route::post('/decline', [App\Http\Controllers\mailController::class, 'decline']);
 
 Route::get('/create', [App\Http\Controllers\mailController::class, 'create']);
 Route::post('/insert', [App\Http\Controllers\mailController::class, 'insertmail']);

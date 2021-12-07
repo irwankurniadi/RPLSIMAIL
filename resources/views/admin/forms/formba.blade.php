@@ -212,11 +212,6 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 <input type="text" class="form-control" name="lok" id="lok" placeholder="Event Location">
             </div>
             <div class="form-group">
-                <label for="date">Signer</label>
-                <input type="text" class="form-control" name="sign1" id="sign1" placeholder="First Signer's Name">
-                <input type="text" class="form-control mt-2" name="sign2" id="sign2" placeholder="Second Signer's Name">
-            </div>
-            <div class="form-group">
                 <label for="date">Description</label>
                 <input type="text" class="form-control" name="desc" id="desc" placeholder="Letter Description">
             </div>
