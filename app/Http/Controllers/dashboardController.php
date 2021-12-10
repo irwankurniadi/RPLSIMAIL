@@ -17,23 +17,18 @@ class dashboardController extends Controller
             return redirect('/')->with('error', 'You must Log in first');
         }
 
-        $sp = DB::select("SELECT * FROM s_person");
-        $csp = count($sp);
-
-        $skeg = DB::select("SELECT * FROM s_ket");
-        $cskeg = count($skeg);
-        
-        $dft = DB::select("SELECT * FROM dft_hadir");
-        $cdft = count($dft);
-
-        $skdek = DB::select("SELECT * FROM sk_dekan");
-        $cskdek = count($skdek);
-
-        $ba = DB::select("SELECT * FROM b_acara");
-        $cba = count($ba);
-
         if($_SESSION['role'] == "admin"){
-            return view('admin/dashadmin', ['sp' => $csp, 'dft' => $cdft, 'st' => $cskdek, 'ba' => $cba]);
+            $sp = DB::select("SELECT * FROM s_person");
+            $csp = count($sp);
+            $skeg = DB::select("SELECT * FROM s_ket");
+            $cskeg = count($skeg);
+            $dft = DB::select("SELECT * FROM dft_hadir");
+            $cdft = count($dft);
+            $skdek = DB::select("SELECT * FROM sk_dekan");
+            $cskdek = count($skdek);
+            $ba = DB::select("SELECT * FROM b_acara");
+            $cba = count($ba);
+            return view('admin/dashadmin', ['csp' => $csp, 'cdft' => $cdft, 'cst' => $cskdek, 'cba' => $cba, 'csk' => $cskeg]);
         }else if($_SESSION['role'] == "mahasiswa"){
             $sketm = DB::select("SELECT * FROM s_ket WHERE id_user = '".$_SESSION['id']."'");
             $csketm = count($sketm);
@@ -42,7 +37,7 @@ class dashboardController extends Controller
             return view('mahasiswa/dashmhs', ['st' => $cskdek, 'sket' => $csketm]);
         }else{
             $sketd = DB::select("SELECT * FROM s_ket WHERE id_user = '".$_SESSION['id']."'");
-            $cskted = count($sketd);
+            $csketd = count($sketd);
             $skdek = DB::select("SELECT * FROM sk_dekan WHERE id_user = '".$_SESSION['id']."'");
             $cskdek = count($skdek);
             return view('mahasiswa/dashmhs', ['st' => $cskdek, 'sket' => $csketd]);

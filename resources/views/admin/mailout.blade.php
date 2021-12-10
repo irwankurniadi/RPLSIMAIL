@@ -194,12 +194,12 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No. </th>
-                        <th>Applicant ID</th>
-                        <th>Addressed to</th>
-                        <th>Date</th>
+                        <th style="width:120px">Applicant ID</th>
+                        <th style="width:150px">Addressed to</th>
+                        <th style="width:120px">Date</th>
                         <th>Case</th>
                         <th>Status</th>
-                        <th style="width:150px">Action</th>
+                        <th style="width:120px">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -208,11 +208,11 @@
                         <td style="width:130px"><?php 
                             if(!empty($s->no_surat)){
                                 if($s->no_surat<10){
-                                    echo "00".$s->no_surat ."/D/FTI/2021";
+                                    echo "00".$s->no_surat ."/A/FTI/2021";
                                 }else if($s->no_surat=10&&$s->no_surat<100){
-                                    echo "0".$s->no_surat ."/D/FTI/2021";
+                                    echo "0".$s->no_surat ."/A/FTI/2021";
                                 }else{
-                                    echo $s->no_surat ."/D/FTI/2021";
+                                    echo $s->no_surat ."/A/FTI/2021";
                                 }
                             }?></td>
                         <td>{{ $s->id_user }}</td>
@@ -234,11 +234,8 @@
                             ?> btn-sm" style="border-radius:25px"><?php echo $s->status ?></td>
                         <td>
                             <a href="/review?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <?php if($s->status=="Done"){?>
-                            <a href="/download?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-primary"><i class="fas fa-download"></i></a>
-                            <?php
-                            }?>
-                        </td>
+                            <a href="/download?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
+                       </td>
                     </tr>
                     @endforeach
                     @foreach ($ba as $b)
@@ -246,11 +243,11 @@
                         <td style="width:130px"><?php 
                             if(!empty($b->no_surat)){
                                 if($b->no_surat<10){
-                                    echo "00".$b->no_surat ."/D/FTI/2021";
+                                    echo "00".$b->no_surat ."/E/FTI/2021";
                                 }else if($b->no_surat=10&&$b->no_surat<100){
-                                    echo "0".$b->no_surat ."/D/FTI/2021";
+                                    echo "0".$b->no_surat ."/E/FTI/2021";
                                 }else{
-                                    echo $b->no_surat ."/D/FTI/2021";
+                                    echo $b->no_surat ."/E/FTI/2021";
                                 }
                             }?></td></td>
                         <td>{{ $b->id_user }}</td>
@@ -272,11 +269,8 @@
                             ?> btn-sm" style="border-radius:25px"><?php echo $b->status ?></td>
                         <td>
                             <a href="/review?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <?php if($b->status=="Done"){?>
-                            <a href="/download?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-primary"><i class="fas fa-download"></i></a>
-                            <?php
-                            }?>
-                        </td>
+                            <a href="/download?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
+                       </td>
                     </tr>
                     @endforeach
                     @foreach ($df as $d)
@@ -284,11 +278,11 @@
                         <td style="width:130px"><?php 
                             if(!empty($d->no_surat)){
                                 if($d->no_surat<10){
-                                    echo "00".$d->no_surat ."/D/FTI/2021";
+                                    echo "00".$d->no_surat ."/C/FTI/2021";
                                 }else if($d->no_surat=10&&$d->no_surat<100){
-                                    echo "0".$d->no_surat ."/D/FTI/2021";
+                                    echo "0".$d->no_surat ."/C/FTI/2021";
                                 }else{
-                                    echo $d->no_surat ."/D/FTI/2021";
+                                    echo $d->no_surat ."/C/FTI/2021";
                                 }
                             }?></td></td>
                         <td>{{ $d->id_user }}</td>
@@ -310,10 +304,7 @@
                             ?> btn-sm" style="border-radius:25px"><?php echo $d->status ?></td>
                         <td>
                             <a href="/review?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <?php if($d->status=="Done"){?>
-                            <a href="/download?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}" class="btn btn-sm btn-primary"><i class="fas fa-download"></i></a>
-                            <?php
-                            }?>
+                            <a href="/download?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -348,10 +339,7 @@
                             ?> btn-sm" style="border-radius:25px"><?php echo $k->status ?></td>
                         <td>
                             <a href="/review?type=<?php echo md5('sk')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <?php if($k->status=="Done"){?>
-                            <a href="/download?type=<?php echo md5('sk')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-primary"><i class="fas fa-download"></i></a>
-                            <?php
-                            }?>
+                            <a href="/download?type=<?php echo md5('sk')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
                         </td>
                     </tr>
                     @endforeach

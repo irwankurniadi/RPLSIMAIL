@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use PDF;
 
 class mailController extends Controller
 {
@@ -23,17 +24,19 @@ class mailController extends Controller
             $ba = DB::select("SELECT * FROM b_acara WHERE status = 'On Process'");
             $df = DB::select("SELECT * FROM dft_hadir WHERE status = 'On Process'");
             $sk = DB::select("SELECT * FROM sk_dekan WHERE status = 'On Process'");
-            return view('admin/mailin', ['sp' => $sp, 'ba' => $ba, 'df' => $df, 'sk' => $sk]);
+            $sket = DB::select("SELECT * FROM s_ket WHERE status = 'On Process'");
+            return view('admin/mailin', ['sp' => $sp, 'ba' => $ba, 'df' => $df, 'sk' => $sk, 'sket' => $sket]);
         }else{
             #already signed
             $sp = DB::select("SELECT * FROM s_person WHERE status = 'Accepted' AND id_user = '".$_SESSION['id']."'");
             $ba = DB::select("SELECT * FROM b_acara WHERE status = 'Accepted' AND id_user = '".$_SESSION['id']."'");
             $df = DB::select("SELECT * FROM dft_hadir WHERE status = 'Accepted' AND id_user = '".$_SESSION['id']."'");
             $sk = DB::select("SELECT * FROM sk_dekan WHERE status = 'Accepted' AND id_user = '".$_SESSION['id']."'");
+            $sket = DB::select("SELECT * FROM s_ket WHERE status = 'Accepted' AND id_user = '".$_SESSION['id']."'");
             if($_SESSION['role'] == "mahasiswa"){
-                return view('mahasiswa/mailin', ['sp' => $sp, 'ba' => $ba, 'df' => $df, 'sk' => $sk]);
+                return view('mahasiswa/mailin', ['sp' => $sp, 'ba' => $ba, 'dft' => $df, 'sk' => $sk, 'sket' => $sket]);
             }else{
-                return view('dosen/mailin', ['sp' => $sp, 'ba' => $ba, 'df' => $df, 'sk' => $sk]);
+                return view('dosen/mailin', ['sp' => $sp, 'ba' => $ba, 'dft' => $df, 'sk' => $sk, 'sket' => $sket]);
             }
         }
     }
@@ -45,15 +48,15 @@ class mailController extends Controller
             return redirect('/')->with('error', 'You must Log in first');
         }
         #mail sent - raw
-            $sp = DB::select("SELECT * FROM s_person WHERE id_user = '".$_SESSION['id']."'");
+            $sp = DB::select("SELECT * FROM s_person WHERE id_user = '".$_SESSION['id']."' ORDER BY id_surat DESC LIMIT 5 ");
 
-            $ba = DB::select("SELECT * FROM b_acara WHERE id_user = '".$_SESSION['id']."'");
+            $ba = DB::select("SELECT * FROM b_acara WHERE id_user = '".$_SESSION['id']."' ORDER BY id_surat DESC  LIMIT 5 ");
 
-            $df = DB::select("SELECT * FROM dft_hadir WHERE id_user = '".$_SESSION['id']."'");
+            $df = DB::select("SELECT * FROM dft_hadir WHERE id_user = '".$_SESSION['id']."' ORDER BY id_surat DESC  LIMIT 5 ");
 
-            $st = DB::select("SELECT * FROM sk_dekan WHERE id_user = '".$_SESSION['id']."'");
+            $st = DB::select("SELECT * FROM sk_dekan WHERE id_user = '".$_SESSION['id']."' ORDER BY id_surat DESC  LIMIT 5 ");
 
-            $sk = DB::select("SELECT * FROM s_ket WHERE id_user = '".$_SESSION['id']."'");
+            $sk = DB::select("SELECT * FROM s_ket WHERE id_user = '".$_SESSION['id']."' ORDER BY id_surat DESC  LIMIT 5 ");
 
         if($_SESSION['role'] == "admin"){
             return view('admin/mailout', ['sp' => $sp, 'ba' => $ba, 'df' => $df, 'sk' => $sk, 'st' => $st]);
@@ -68,9 +71,9 @@ class mailController extends Controller
         $tp = $_GET['type'];
         if($tp==md5('sp')){
             $srt = "s_person";
-        }else if($tp==md5('sk')){
+        }else if($tp==md5('sket')){
             $srt = "s_ket";
-        }else if($tp==md5('st')){
+        }else if($tp==md5('sk')){
             $srt = "sk_dekan";
         }else if($tp==md5('dft')){
             $srt = "dft_hadir";
@@ -82,9 +85,9 @@ class mailController extends Controller
             $nums = $c->nosurat;
         }
         $nobaru = $nums+1;
-        
+        $ttd = $_POST['ac'];
         DB::update(
-            "UPDATE $srt SET status = 'Accepted', no_surat = '$nobaru' WHERE id_surat = ?",
+            "UPDATE $srt SET status = 'Accepted', no_surat = '$nobaru', nama_ttd = '$ttd' WHERE id_surat = ?",
             [$_GET['id']]
         );
         return redirect('/mailin');
@@ -93,7 +96,7 @@ class mailController extends Controller
         $tp = $_GET['type'];
         if($tp==md5('sp')){
             $srt = "s_person";
-        }else if($tp==md5('sk')){
+        }else if($tp==md5('sket')){
             $srt = "s_ket";
         }else if($tp==md5('st')){
             $srt = "sk_dekan";
@@ -120,7 +123,7 @@ class mailController extends Controller
         $tp = $_GET['type'];
         if($tp==md5('sp')){
             $rev = "s_person";
-        }else if($tp==md5('st')){
+        }else if($tp==md5('sket')){
             $rev = "s_ket";
         }else if($tp==md5('sk')){
             $rev = "sk_dekan";
@@ -173,18 +176,24 @@ class mailController extends Controller
     function insertmail(){
         $dbs = $_POST['dbs'];
         if($dbs=="s_person"){
-            $id = $_POST['id'];
+            if($_SESSION['role']=='admin'){
+                $id = $_POST['id'];
+            }else {
+                $id = $_SESSION['id'];
+            }
             $pp = $_POST['pp'];
             $tgl = $_POST['tgl'];
             $at = $_POST['at'];
             $lok = $_POST['lok'];
             $desc = $_POST['desc'];
-            $ids = $_POST['ids'];
-            $idn = $_POST['idn'];
 
             DB::insert("INSERT INTO $dbs (id_user, tgl, hal, n_mitra, al_mitra, isi, status) values (?,?,?,?,?,?,?)", [$id, "$tgl", "$pp", "$at", "$lok", "$desc", 'On Process']);
         }else if($dbs=="b_acara"){
-            $id = $_POST['id'];
+            if($_SESSION['role']=='admin'){
+                $id = $_POST['id'];
+            }else {
+                $id = $_SESSION['id'];
+            }
             $tgl = $_POST['tgl'];
             $en = $_POST['nm_e'];
             $et = $_POST['tm_e'];
@@ -195,7 +204,11 @@ class mailController extends Controller
 
             DB::insert("INSERT INTO $dbs (id_user, tgl, tema, nama_acara, tempat, keterangan, nama_ttd_1, nama_ttd_2, status) values (?,?,?,?,?,?,?,?,?)", [$id, "$tgl", "$et", $en, "$lok", "$desc", $sign1, "$sign2", 'On Process']);
         }else if($dbs=="dft_hadir"){
-            $id = $_POST['id'];
+            if($_SESSION['role']=='admin'){
+                $id = $_POST['id'];
+            }else {
+                $id = $_SESSION['id'];
+            }
             $tgl = $_POST['tgl'];
             $en = $_POST['nm_e'];
             $st = $_POST['stime'];
@@ -207,13 +220,17 @@ class mailController extends Controller
             DB::insert("INSERT INTO $dbs (id_user, tgl, jam, nama_acara, tempat, pembicara, nama_ttd, status) values (?,?,?,?,?,?,?,?,?)", [$id, "$tgl", "$st."-".$et", $en, "$lok", "$guest", $evman, "$sign2", 'On Process']);
         }
         else if($dbs=="s_ket"){
-            $id = $_POST['id'];
+            if($_SESSION['role']=='admin'){
+                $id = $_POST['id'];
+            }else {
+                $id = $_SESSION['id'];
+            }
             $tgl = $_POST['tgl'];
             $sem = $_POST['sem'];
             $maj = $_POST['maj'];
             $fac = $_POST['fac'];
 
-            DB::insert("INSERT INTO $dbs (id_user, tgl, sem, prodi, fakult, status) values (?,?,?,?,?,?)", [$id, "$tgl", "$sem", "$maj", "$fac", 'On Process']);
+            DB::insert("INSERT INTO $dbs (id_user, date, sem, prodi, fakult, status) values (?,?,?,?,?,?)", [$id, "$tgl", "$sem", "$maj", "$fac", 'On Process']);
         }
         else if($dbs=="sk_dekan"){
             if($_SESSION['role']=="admin"){
@@ -231,5 +248,166 @@ class mailController extends Controller
             DB::insert("INSERT INTO $dbs (id_user, pemohon, keterangan, tgl_mulai, tgl_sls, acara, tempat, status) values (?,?,?,?,?,?,?,?)", [$id, "$req", "$ad", "$st","$et", $ev, "$lok", 'On Process']);
         }
         return redirect('/mailout');
+    }
+
+    function download(){
+        try {
+            $user = $_SESSION['id'];
+            $role = $_SESSION['role'];
+        } catch (\Exception $e) {
+            return redirect('/')->with('error', 'You must Log in first');
+        }
+        $tp = $_GET['type'];
+        if($tp==md5('sp')){
+            $rev = "s_person";
+            $filename = "SuratPersonalia";
+            $view = "suratpersonal";
+        }else if($tp==md5('sket')){
+            $rev = "s_ket";
+            $filename = "SuratKeterangan";
+            $view = "suratket";
+        }else if($tp==md5('sk')){
+            $rev = "sk_dekan";
+            $filename = "SuratTugas";
+            $view = "surattugas";
+        }else if($tp==md5('dft')){
+            $rev = "dft_hadir";
+            $filename = "DaftarHadir";
+            $view = "daftarhadir";
+        }else if($tp==md5('ba')){
+            $rev = "b_acara";
+            $filename = "BeritaAcara";
+            $view = "beritaacara";
+        }
+        $content = DB::select("SELECT * FROM $rev WHERE id_surat = '".$_GET['id']."'");
+        $namauser = DB::select("SELECT nama FROM users WHERE id_users = '".$_SESSION['id']."'");
+        foreach($namauser as $nm){
+            $nama = $nm->nama;
+        }
+        if($tp==md5('sp')){
+            foreach($content as $c){
+                $no = $c->no_surat;
+                $id = $c->id_user;
+                $tgl = $c->tgl;
+                $hal = $c->hal;
+                $nmit = $c->n_mitra;
+                $almit = $c->al_mitra;
+                $isi = $c->isi;
+                $ttd = $c->nama_ttd;
+            }
+        }else if($tp==md5('sket')){
+            foreach($content as $c){
+                $no = $c->no_surat;
+                $id = $c->id_user;
+                $tgl = $c->tgl;
+                $sem = $c->semester;
+                $pro = $c->prodi;
+                $fac = $c->fakult;
+                $ttd = $c->nama_ttd;
+            }
+        }else if($tp==md5('sk')){
+            foreach($content as $c){
+                $no = $c->no_surat;
+                $id = $c->id_user;
+                $tglm = $c->tgl_mulai;
+                $tgls = $c->tgl_sls;
+                $pem = $c->pemohon;
+                $ac = $c->acara;
+                $ket = $c->keterangan;
+                $lok = $c->tempat;
+                $ttd = $c->nama_ttd;
+            }
+        }else if($tp==md5('dft')){
+            
+        }else if($tp==md5('ba')){
+            $no = 1;
+            $ttd = "72190317 - Irwan Kurniadi";
+        }
+        
+        if($no<10){
+            $num = "00".$no;
+        }else if($no=10&&$no<100){
+            $num = "0".$no;
+        }else {
+            $num = $no;
+        }
+        $tglsk = date('dnY');
+        #$tglfn = date_format($tgfn, 'dnY');
+        $idttd = substr($ttd, 0, 7);
+        $namattd = substr($ttd, 10, 50);
+        $string = "Yang Bertanda Tangan : ";
+        $qrcode = base64_encode(QrCode::size(100)->errorCorrection('H')->generate("$string\nNama : $namattd\nID : $idttd"));
+
+        if($tp==md5('sp')){
+            $data = ['nosurat' => $num,
+                     'hal' => $hal, 
+                     'nmitra' => $nmit, 
+                     'almitra' => $almit, 
+                     'namattd' => $namattd, 
+                     'isi' => $isi,
+                     'tgl' => $tgl, 
+                     'idttd' => $idttd];
+        }else if($tp==md5('sket')){
+            $data = ['nosurat' => $num,
+                     'nama' => $nama,
+                     'role' => $_SESSION['role'],
+                     'id' => $id, 
+                     'fac' => $fac, 
+                     'maj' => $pro, 
+                     'namattd' => $namattd, 
+                     'sem' => $sem,
+                     'tgl' => $tgl, 
+                     'idttd' => $idttd];
+        }else if($tp==md5('sk')){
+            $data = ['nosurat' => $num,
+                     'nama' => $nama,
+                     'pemohon' => $pem,
+                     'role' => $_SESSION['role'],
+                     'id' => $id, 
+                     'ket' => $ket, 
+                     'tglm' => $tglm, 
+                     'namattd' => $namattd, 
+                     'acara' => $ac,
+                     'lok' => $lok,
+                     'tgls' => $tgls, 
+                     'idttd' => $idttd];
+        }else if($tp==md5('dft')){
+            
+        }else if($tp==md5('ba')){
+            $data = ['no' => $no];
+        }
+
+        return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView("/surat/$view", $data, compact('qrcode'))->stream($filename."_".$num.$tglsk.'.pdf');
+    }
+
+    function archive(){
+        try {
+            $user = $_SESSION['id'];
+            $role = $_SESSION['role'];
+        } catch (\Exception $e) {
+            return redirect('/')->with('error', 'You must Log in first');
+        }
+        #mail sent - raw
+            $sp = DB::select("SELECT * FROM s_person WHERE id_user = '".$_SESSION['id']."'");
+
+            $ba = DB::select("SELECT * FROM b_acara WHERE id_user = '".$_SESSION['id']."'");
+
+            $df = DB::select("SELECT * FROM dft_hadir WHERE id_user = '".$_SESSION['id']."'");
+
+            $st = DB::select("SELECT * FROM sk_dekan WHERE id_user = '".$_SESSION['id']."'");
+
+            $sk = DB::select("SELECT * FROM s_ket WHERE id_user = '".$_SESSION['id']."'");
+
+        if($_SESSION['role'] == "admin"){
+            return view('admin/arsip', ['sp' => $sp, 'ba' => $ba, 'df' => $df, 'sk' => $sk, 'st' => $st]);
+        }else if($_SESSION['role'] == "mahasiswa"){
+            return view('mahasiswa/arsip', ['sk' => $sk, 'st' => $st]);
+        }else{
+            return view('dosen/arsip', ['ba' => $ba, 'st' => $st, 'sk' => $sk]);
+        }
+    }
+
+    function cek(){
+        return view('surat/beritaacara');
     }
 }

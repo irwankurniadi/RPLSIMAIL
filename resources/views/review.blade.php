@@ -174,18 +174,17 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
         Review Mail / <?php echo strtoupper($_SESSION['role'])." ".$_SESSION['id'] ?></p>
         <div class="ml-2 mr-2">
             <?php 
-            if($rev=="s_person"){
+            if($rev=="s_ket"){
             ?>
                 @foreach ($cont as $c)
                 <?php 
                 $nos = $c->no_surat;
                 $ids = $c->id_user;
-                $tgl = $c->tgl;
-                $ev = $c->hal;  
-                $nm = $c->n_mitra;
-                $am = $c->al_mitra;
-                $itd = $c->id_ttd;
-                $ntd = $c->nama_ttd;
+                $tgl = $c->date;
+                $sem = $c->sem;
+                $prodi = $c->prodi;
+                $fak = $c->fakult;
+                $ttd = $c->nama_ttd;
                 $stat = $c->status;
                 ?>
                 @endforeach
@@ -194,7 +193,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     <td width="140px">No.</td>
                     <td>: 
                         <?php if(!empty($nos)){
-                            echo $nos."/A/FTI/2021";
+                            echo $nos."/B/FTI/2021";
                         } else {
                             echo "Mail has not been checked by Admin";
                         }
@@ -208,7 +207,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     </tr>
                 <tr>
                     <td>Mail Type</td>
-                    <td>: Personal Mail</td>
+                    <td>: Activity Mail</td>
                     <td></td>
                 </tr>
                 <tr>
@@ -217,36 +216,42 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     <td></td>
                 </tr>
                 <tr>
-                    <td>Event</td>
-                    <td>: <?php echo $ev ?></td>
+                    <td>Semester</td>
+                    <td>: <?php echo $sem ?></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>Addressed to</td>
-                    <td>: <?php echo $nm." ".$am ?></td>
+                    <td>Major</td>
+                    <td>: <?php echo $prodi ?></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Faculty</td>
+                    <td>: <?php echo $fak ?></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Signer</td>
-                    <td>: <?php echo $ntd." / ".$itd ?></td>
+                    <td>: <?php echo $ttd ?></td>
                     <td></td>
                 </tr>
             <?php 
             }
             ?>
             <?php 
-            if($rev=="dft_hadir"){
+            if($rev=="sk_dekan"){
             ?>
                 @foreach ($cont as $c)
                 <?php 
                 $nos = $c->no_surat;
                 $ids = $c->id_user;
-                $tgl = $c->tgl;
-                $ev = $c->nama_acara;
-                $time = $c->jam;
+                $pem = $c->pemohon;
+                $ket = $c->keterangan;
+                $ev = $c->acara;
+                $tgls = $c->tgl_mulai;
+                $tgle = $c->tgl_sls;
                 $lok = $c->tempat;
-                $pem = $c->pembicara;
-                $ntd = $c->nama_ttd;
+                $ttd = $c->nama_ttd;
                 $stat = $c->status;
                 ?>
                 @endforeach
@@ -262,14 +267,19 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         ?></td>
                     <td align="right">Status : <label class="text-success"><?php echo $stat ?></label></td>
                 </tr>
-                    <tr>
-                        <td>Applicant ID</td>
-                        <td>: <?php echo $ids ?></td>
-                        <td></td>
-                    </tr>
+                <tr>
+                    <td>Applicant ID</td>
+                    <td>: <?php echo $ids ?></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Requester</td>
+                    <td>: <?php echo $pem ?></td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td>Mail Type</td>
-                    <td>: Personal Mail</td>
+                    <td>: Assigment Mail</td>
                     <td></td>
                 </tr>
                 <tr>
@@ -279,22 +289,18 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 </tr>
                 <tr>
                     <td>Date</td>
-                    <td>: <?php echo $tgl ?></td>
+                    <td>: <?php $tglm = date_create($tgls); $tglsl = date_create($tgle); 
+                    echo date_format($tglm, 'd')." - ".date_format($tglsl, 'd M Y') ?></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>Time</td>
-                    <td>: <?php echo $time." WIB"?></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Guest</td>
-                    <td>: <?php echo $pem ?></td>
+                    <td>Location</td>
+                    <td>: <?php echo $lok ?></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Signer</td>
-                    <td>: <?php echo $ntd ?></td>
+                    <td>: <?php echo $ttd ?></td>
                     <td></td>
                 </tr>
             <?php 

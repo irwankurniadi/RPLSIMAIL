@@ -109,7 +109,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard TEST | <?php echo strtoupper($_SESSION['role']) ?></title>
+    <title>Dashboard | <?php echo strtoupper($_SESSION['role']) ?></title>
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -201,10 +201,14 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     <div class="card-body">
                         <h5 class="card-title" style="font-family:michroma;font-size:35px">
                         <?php 
-                        if($sp==0){
-                            echo "00";
-                        }else if($sp<10){
-                            echo "0".$sp;
+                        if($csp==0){
+                            echo "000";
+                        }else if($csp<10){
+                            echo "00".$csp;
+                        }else if($csp=10&&$csp<100){
+                            echo "0".$csp;
+                        }else {
+                            echo $csp;
                         }
                         ?>
                         </h5>
@@ -212,25 +216,39 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     </div>
                 </div>
             </div>
-            <div class="col-sm mr-2">
+            <div class="col-sm ml-2">
                 <div class="card text-center border-dark">
                     <div class="card-body">
                         <h5 class="card-title" style="font-family:michroma;font-size:35px">
-                        04
+                        <?php 
+                        if($csk==0){
+                            echo "00";
+                        }else if($csk<10){
+                            echo "00".$csk;
+                        }else if($csk=10&&$csk<100){
+                            echo "0".$csk;
+                        }else {
+                            echo $csk;
+                        }
+                        ?>
                         </h5>
                         <p class="card-text" style="font-family:michroma;font-size:15px">Activity Mail</p>
                     </div>
                 </div>
             </div>
-            <div class="col-sm mr-2">
+            <div class="col-sm ml-2">
                 <div class="card text-center border-dark">
                     <div class="card-body">
                         <h5 class="card-title" style="font-family:michroma;font-size:35px">
                         <?php 
-                        if($dft==0){
+                        if($cdft==0){
                             echo "00";
-                        }else if($dft<10){
-                            echo "0".$dft;
+                        }else if($cdft<10){
+                            echo "00".$cdft;
+                        }else if($cdft=10&&$cdft<100){
+                            echo "0".$cdft;
+                        }else {
+                            echo $cdft;
                         }
                         ?>
                         </h5>
@@ -238,15 +256,19 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     </div>
                 </div>
             </div>
-            <div class="col-sm mr-2">
+            <div class="col-sm ml-2">
                 <div class="card text-center border-dark">
                     <div class="card-body">
                         <h5 class="card-title" style="font-family:michroma;font-size:35px">
                         <?php 
-                        if($st==0){
+                        if($cst==0){
                             echo "00";
-                        }else if($st<10){
-                            echo "0".$st;
+                        }else if($cst<10){
+                            echo "00".$cst;
+                        }else if($cst=10&&$cst<100){
+                            echo "0".$cst;
+                        }else {
+                            echo $cst;
                         }
                         ?>
                         </h5>
@@ -254,15 +276,19 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     </div>
                 </div>
             </div>
-            <div class="col-sm mr-2">
+            <div class="col-sm ml-2 mr-2">
                 <div class="card text-center border-dark">
                     <div class="card-body">
                         <h5 class="card-title" style="font-family:michroma;font-size:35px">
                         <?php 
-                        if($ba==0){
+                        if($cba==0){
                             echo "00";
-                        }else if($ba<10){
-                            echo "0".$ba;
+                        }else if($cba<10){
+                            echo "00".$cba;
+                        }else if($cba=10&&$cba<100){
+                            echo "0".$cba;
+                        }else {
+                            echo $cba;
                         }
                         ?>
                         </h5>
@@ -314,31 +340,31 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,
-                data: "<?php echo $sp ?>"
+                data: "<?php echo $csp ?>"
             },{
                 label : "Activity Mail",
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1,
-                data: "<?php echo $dft ?>"
+                data: "<?php echo $csk ?>"
             },{
                 label : "Attendance Mail",
                 backgroundColor: 'rgba(255, 206, 86, 0.2)',
                 borderColor: 'rgba(255, 206, 86, 1)',
                 borderWidth: 1,
-                data: "<?php echo $dft ?>"
+                data: "<?php echo $cdft ?>"
             },{
                 label : "Assignment Mail",
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
-                data: "<?php echo $st ?>"
+                data: "<?php echo $cst ?>"
             },{
                 label : "News Mail",
                 backgroundColor: 'rgba(153, 102, 255, 0.2)',
                 borderColor: 'rgba(153, 102, 255, 1)',
                 borderWidth: 1,
-                data: "<?php echo $ba ?>"
+                data: "<?php echo $cba ?>"
             }]
         },
         options: {

@@ -228,7 +228,34 @@
                             ?> btn-sm" style="border-radius:25px"><?php echo $s->status ?></td>
                         <td>
                             <a href="/review?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <a href="/accept?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-success ml-2 mr-2" title="Accept"><i class="fas fa-check-square"></i></a>
+                            <button type="button" class="btn btn-success btn-sm ml-2 mr-2" title="Accept" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fas fa-check-square"></i>
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Accept Mail</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="/accept?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}">
+                                    @csrf
+                                    <div class="input-group mb-3">
+                                    <select class="custom-select" name="ac" id="ac">
+                                        <option selected>Signer?</option>
+                                        <option value="984E249 - Budi Susanto, S.Kom., M.T.">984E249 - Budi Susanto, S.Kom., M.T.</option>
+                                        <option value="004E289 - Restyandito, S.Kom., MSIS.,Ph.D.">004E289 - Restyandito, S.Kom., MSIS.,Ph.D.</option>
+                                    </select>
+                                    </div>
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Submit">
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                             <button type="button" class="btn btn-danger btn-sm" title="Decline"data-toggle="modal" data-target="#exampleModal">
                             <i class="fas fa-times"></i>
                             </button>
@@ -277,7 +304,34 @@
                             ?> btn-sm" style="border-radius:25px"><?php echo $b->status ?></td>
                         <td>
                             <a href="/review?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <a href="/accept?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-success ml-2 mr-2" title="Accept"><i class="fas fa-check-square"></i></a>
+                            <button type="button" class="btn btn-success btn-sm ml-2 mr-2" title="Accept" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fas fa-check-square"></i>
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Accept Mail</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="/accept?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}">
+                                    @csrf
+                                    <div class="input-group mb-3">
+                                    <select class="custom-select" name="ac" id="ac">
+                                        <option selected>Signer?</option>
+                                        <option value="984E249 - Budi Susanto, S.Kom., M.T.">984E249 - Budi Susanto, S.Kom., M.T.</option>
+                                        <option value="004E289 - Restyandito, S.Kom., MSIS.,Ph.D.">004E289 - Restyandito, S.Kom., MSIS.,Ph.D.</option>
+                                    </select>
+                                    </div>
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Submit">
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                             <button type="button" class="btn btn-danger btn-sm" title="Decline"data-toggle="modal" data-target="#exampleModal">
                             <i class="fas fa-times"></i>
                             </button>
@@ -326,7 +380,34 @@
                             ?> btn-sm" style="border-radius:25px"><?php echo $d->status ?></td>
                         <td>
                             <a href="/review?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <a href="/accept?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}" class="btn btn-sm btn-success ml-2 mr-2" title="Accept"><i class="fas fa-check-square"></i></a>
+                            <button type="button" class="btn btn-success btn-sm ml-2 mr-2" title="Accept" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fas fa-check-square"></i>
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Accept Mail</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="/accept?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}">
+                                    @csrf
+                                    <div class="input-group mb-3">
+                                    <select class="custom-select" name="ac" id="ac">
+                                        <option selected>Signer?</option>
+                                        <option value="984E249 - Budi Susanto, S.Kom., M.T.">984E249 - Budi Susanto, S.Kom., M.T.</option>
+                                        <option value="004E289 - Restyandito, S.Kom., MSIS.,Ph.D.">004E289 - Restyandito, S.Kom., MSIS.,Ph.D.</option>
+                                    </select>
+                                    </div>
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Submit">
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                             <button type="button" class="btn btn-danger btn-sm" title="Decline"data-toggle="modal" data-target="#exampleModal">
                             <i class="fas fa-times"></i>
                             </button>
@@ -382,8 +463,35 @@
                             }
                             ?> btn-sm" style="border-radius:25px"><?php echo $k->status ?></td>
                         <td>
-                            <a href="/review?type=<?php echo md5('st')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <a href="/accept?type=<?php echo md5('st')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-success ml-2 mr-2" title="Accept"><i class="fas fa-check-square"></i></a>
+                            <a href="/review?type=<?php echo md5('sk')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <button type="button" class="btn btn-success btn-sm ml-2 mr-2" title="Accept" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fas fa-check-square"></i>
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Accept Mail</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="/accept?type=<?php echo md5('sk')?>&id={{ $k->id_surat }}">
+                                    @csrf
+                                    <div class="input-group mb-3">
+                                    <select class="custom-select" name="ac" id="ac">
+                                        <option selected>Signer?</option>
+                                        <option value="984E249 - Budi Susanto, S.Kom., M.T.">984E249 - Budi Susanto, S.Kom., M.T.</option>
+                                        <option value="004E289 - Restyandito, S.Kom., MSIS.,Ph.D.">004E289 - Restyandito, S.Kom., MSIS.,Ph.D.</option>
+                                    </select>
+                                    </div>
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Submit">
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                             <button type="button" class="btn btn-danger btn-sm" title="Decline"data-toggle="modal" data-target="#exampleModal">
                             <i class="fas fa-times"></i>
                             </button>
@@ -397,7 +505,86 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST" action="/decline?type=<?php echo md5('st')?>&id={{ $k->id_surat }}">
+                                    <form method="POST" action="/decline?type=<?php echo md5('sk')?>&id={{ $k->id_surat }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <textarea class="input" name="dc" rows="5" cols="60" wrap="soft" style="overflow:hidden; resize:none; border-radius:5px" placeholder="  Enter the reason for decline this mail"></textarea>
+                                    </div>
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Submit">
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @foreach ($sket as $sket)
+                    <tr>
+                        <td>{{ $sket->id_user }}</td>
+                        <td>Activity Mail</td>
+                        <td><?php 
+                                $tgl = date_create($sket->tgl);
+                                    echo date_format( $tgl , 'd M Y') ;
+                            ?>
+                        </td>
+                        <td>Permohonan Surat Aktif</td>
+                        <td><a type="button" class="btn 
+                            <?php 
+                            if($sket->status=="Done"){
+                                echo "btn-primary text-white";
+                            }else if($sket->status=="Accepted"){
+                                echo "btn-success text-white";
+                            }else if($sket->status=="Declined"){
+                                echo "btn-danger text-white";
+                            }else if($sket->status=="On Process"){
+                                echo "btn-warning";
+                            }
+                            ?> btn-sm" style="border-radius:25px"><?php echo $sket->status ?></td>
+                        <td>
+                            <a href="/review?type=<?php echo md5('sket')?>&id={{ $sket->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <button type="button" class="btn btn-success btn-sm ml-2 mr-2" title="Accept" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fas fa-check-square"></i>
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Accept Mail</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="/accept?type=<?php echo md5('sket')?>&id={{ $sket->id_surat }}">
+                                    @csrf
+                                    <div class="input-group mb-3">
+                                    <select class="custom-select" name="ac" id="ac">
+                                        <option selected>Signer?</option>
+                                        <option value="984E249 - Budi Susanto, S.Kom., M.T.">984E249 - Budi Susanto, S.Kom., M.T.</option>
+                                        <option value="004E289 - Restyandito, S.Kom., MSIS.,Ph.D.">004E289 - Restyandito, S.Kom., MSIS.,Ph.D.</option>
+                                    </select>
+                                    </div>
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Submit">
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <button type="button" class="btn btn-danger btn-sm" title="Decline"data-toggle="modal" data-target="#exampleModal">
+                            <i class="fas fa-times"></i>
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Decline Mail</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="/decline?type=<?php echo md5('sket')?>&id={{ $sket->id_surat }}">
                                     @csrf
                                     <div class="form-group">
                                         <textarea class="input" name="dc" rows="5" cols="60" wrap="soft" style="overflow:hidden; resize:none; border-radius:5px" placeholder="  Enter the reason for decline this mail"></textarea>

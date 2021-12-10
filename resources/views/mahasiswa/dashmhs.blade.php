@@ -190,9 +190,15 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 <div class="card text-center border-dark">
                     <div class="card-body">
                         <h5 class="card-title" style="font-family:michroma;font-size:35px">
-                        04
+                        <?php 
+                        if($sket==0){
+                            echo "00";
+                        }else if($sket<10){
+                            echo "0".$sket;
+                        }
+                        ?>
                         </h5>
-                        <p class="card-text" style="font-family:michroma;font-size:15px">Surat Keterangan</p>
+                        <p class="card-text" style="font-family:michroma;font-size:15px">Activity Mail</p>
                     </div>
                 </div>
             </div>
@@ -208,7 +214,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         }
                         ?>
                         </h5>
-                        <p class="card-text" style="font-family:michroma;font-size:15px">Surat Tugas</p>
+                        <p class="card-text" style="font-family:michroma;font-size:15px">Assigment Mail</p>
                     </div>
                 </div>
             </div>
@@ -252,13 +258,13 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
         data: {
             labels: xValues,
             datasets: [{
-                label : "Surat Keterangan Mahasiswa",
+                label : "Activity Mail",
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1,
                 data: "<?php echo $sket ?>"
             },{
-                label : "Surat Tugas",
+                label : "Assigment Mail",
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,

@@ -23,10 +23,16 @@ Route::get('/profile', [App\Http\Controllers\userController::class, 'profile']);
 
 Route::get('/mailin', [App\Http\Controllers\mailController::class, 'mailin']);
 Route::get('/mailout', [App\Http\Controllers\mailController::class, 'mailout']);
+Route::get('/archive', [App\Http\Controllers\mailController::class, 'archive']);
 
+###-----ACTION-----###
 Route::get('/review', [App\Http\Controllers\mailController::class, 'review']);
-Route::get('/accept', [App\Http\Controllers\mailController::class, 'accept']);
+Route::post('/accept', [App\Http\Controllers\mailController::class, 'accept']);
 Route::post('/decline', [App\Http\Controllers\mailController::class, 'decline']);
 
 Route::get('/create', [App\Http\Controllers\mailController::class, 'create']);
 Route::post('/insert', [App\Http\Controllers\mailController::class, 'insertmail']);
+
+Route::get('/download', [App\Http\Controllers\mailController::class, 'download']);
+
+Route::get('/cek', [App\Http\Controllers\mailController::class, 'cek']);

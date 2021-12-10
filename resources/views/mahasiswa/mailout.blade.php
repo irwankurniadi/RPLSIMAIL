@@ -185,7 +185,6 @@
                     <tr>
                         <th>No. </th>
                         <th>Mail Type</th>
-                        <th>Applicant ID</th>
                         <th>Date</th>
                         <th>Case</th>
                         <th>Status</th>
@@ -198,18 +197,17 @@
                         <td style="width:130px"><?php 
                             if(!empty($k->no_surat)){
                                 if($k->no_surat<10){
-                                    echo "00".$k->no_surat ."/D/FTI/2021";
+                                    echo "00".$k->no_surat ."/B/FTI/2021";
                                 }else if($k->no_surat=10&&$k->no_surat<100){
                                     echo "0".$k->no_surat ."/D/FTI/2021";
                                 }else{
                                     echo $k->no_surat ."/D/FTI/2021";
                                 }
                             }?></td>
-                        <td>Assignment Mail</td>
-                        <td>{{ $k->pemohon }}</td>
-                        <td><?php $tglk = date_create($k->tgl_mulai);
+                        <td>Activity Mail</td>
+                        <td><?php $tglk = date_create($k->tgl);
                                 echo date_format( $tglk , 'd M Y') ?></td>
-                        <td>{{ $k->acara }}</td>
+                        <td>Permohonan Surat Mahasiswa Aktif</td>
                         <td><a type="button" class="btn 
                             <?php 
                             if($k->status=="Done"){
@@ -223,9 +221,9 @@
                             }
                             ?> btn-sm" style="border-radius:25px"><?php echo $k->status ?></td>
                         <td>
-                            <a href="/review?type=<?php echo md5('sk')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <?php if($k->status=="Done"){?>
-                            <a href="/download?type=<?php echo md5('sk')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-primary"><i class="fas fa-download"></i></a>
+                            <a href="/review?type=<?php echo md5('sket')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <?php if($k->status=="Accepted"){?>
+                            <a href="/download?type=<?php echo md5('sket')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
                             <?php
                             }?>
                         </td>
@@ -243,8 +241,7 @@
                                     echo $t->no_surat ."/D/FTI/2021";
                                 }
                             }?></td>
-                        <td>Activity Mail</td>
-                        <td>{{ $t->pemohon }}</td>
+                        <td>Assigment Mail</td>
                         <td><?php $tglt = date_create($t->tgl_mulai);
                                 echo date_format( $tglt , 'd M Y') ?></td>
                         <td>{{ $t->acara }}</td>
@@ -261,9 +258,9 @@
                             }
                             ?> btn-sm" style="border-radius:25px"><?php echo $t->status ?></td>
                         <td>
-                            <a href="/review?type=<?php echo md5('st')?>&id={{ $t->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <?php if($t->status=="Done"){?>
-                            <a href="/download?type=<?php echo md5('st')?>&id={{ $t->id_surat }}" class="btn btn-sm btn-primary"><i class="fas fa-download"></i></a>
+                            <a href="/review?type=<?php echo md5('sk')?>&id={{ $t->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <?php if($t->status=="Accepted"){?>
+                            <a href="/download?type=<?php echo md5('sk')?>&id={{ $t->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
                             <?php
                             }?>
                         </td>

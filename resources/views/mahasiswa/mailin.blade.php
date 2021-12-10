@@ -183,8 +183,7 @@
             <table class="table table-bordered text-center">
                 <thead class="thead-dark">
                     <tr>
-                        <th style="width:130px">Applicant ID</th>
-                        <th>Signer</th>
+                        <th style="width:130px">Signer</th>
                         <th>Date</th>
                         <th>Event</th>
                         <th>Status</th>
@@ -192,28 +191,131 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($sk as $k)
+                    @foreach ($dft as $dft)
                     <tr>
-                        <td>{{ $k->pemohon }}</td>
-                        <td>{{ $k->nama_ttd }}</td>
-                        <td><?php $tglk = date_create($k->tgl_mulai);
+                        <td><?php echo substr($dft->nama_ttd, 0, 7) ?></td>
+                        <td><?php $tglk = date_create($dft->tgl);
                                 echo date_format( $tglk , 'd M Y') ?></td>
-                        <td>{{ $k->acara }}</td>
+                        <td>{{ $dft->keterangan }}</td>
                         <td><a type="button" class="btn 
                             <?php 
-                            if($k->status=="Done"){
+                            if($dft->status=="Done"){
                                 echo "btn-primary text-white";
-                            }else if($k->status=="Accepted"){
+                            }else if($dft->status=="Accepted"){
                                 echo "btn-success text-white";
-                            }else if($k->status=="Declined"){
+                            }else if($dft->status=="Declined"){
                                 echo "btn-danger text-white";
-                            }else if($k->status=="On Process"){
+                            }else if($dft->status=="On Process"){
                                 echo "btn-warning";
                             }
-                            ?> btn-sm" style="border-radius:25px"><?php echo $k->status ?></td>
+                            ?> btn-sm" style="border-radius:25px"><?php echo $dft->status ?></td>
                         <td>
-                            <a href="/review?type=<?php echo md5('st')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <a href="/download?type=<?php echo md5('st')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-primary ml-2 mr-2" title="Download"><i class="fas fa-download"></i></a>
+                            <a href="/review?type=<?php echo md5('dft')?>&id={{ $dft->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <a href="/download?type=<?php echo md5('dft')?>&id={{ $dft->id_surat }}" class="btn btn-sm btn-primary ml-2 mr-2" title="Download"><i class="fas fa-download"></i></a>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @foreach ($ba as $ba)
+                    <tr>
+                        <td><?php echo substr($ba->nama_ttd, 0, 7) ?></td>
+                        <td><?php $tglk = date_create($ba->tgl);
+                                echo date_format( $tglk , 'd M Y') ?></td>
+                        <td>{{ $ba->keterangan }}</td>
+                        <td><a type="button" class="btn 
+                            <?php 
+                            if($ba->status=="Done"){
+                                echo "btn-primary text-white";
+                            }else if($ba->status=="Accepted"){
+                                echo "btn-success text-white";
+                            }else if($ba->status=="Declined"){
+                                echo "btn-danger text-white";
+                            }else if($ba->status=="On Process"){
+                                echo "btn-warning";
+                            }
+                            ?> btn-sm" style="border-radius:25px"><?php echo $ba->status ?></td>
+                        <td>
+                            <a href="/review?type=<?php echo md5('ba')?>&id={{ $ba->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <a href="/download?type=<?php echo md5('ba')?>&id={{ $ba->id_surat }}" class="btn btn-sm btn-primary ml-2 mr-2" title="Download"><i class="fas fa-download"></i></a>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @foreach ($sk as $sk)
+                    <tr>
+                        <td><?php echo substr($sk->nama_ttd, 0, 7) ?></td>
+                        <td><?php $tgls = date_create($sk->tgl_mulai);
+                                  $tgle = date_create($sk->tgl_mulai);
+                                  if($tgls==$tgle){
+                                    echo date_format( $tgls , 'd M Y'); 
+                                  }else{
+                                    echo date_format( $tgls , 'd')." - ".date_format( $tgle , 'd M Y'); 
+                                  }
+                            ?>
+                        </td>
+                        <td>{{ $sk->keterangan }}</td>
+                        <td><a type="button" class="btn 
+                            <?php 
+                            if($sk->status=="Done"){
+                                echo "btn-primary text-white";
+                            }else if($sk->status=="Accepted"){
+                                echo "btn-success text-white";
+                            }else if($sk->status=="Declined"){
+                                echo "btn-danger text-white";
+                            }else if($sk->status=="On Process"){
+                                echo "btn-warning";
+                            }
+                            ?> btn-sm" style="border-radius:25px"><?php echo $sk->status ?></td>
+                        <td>
+                            <a href="/review?type=<?php echo md5('sk')?>&id={{ $sk->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <a href="/download?type=<?php echo md5('sk')?>&id={{ $sk->id_surat }}" class="btn btn-sm btn-primary ml-2 mr-2" title="Download"><i class="fas fa-download"></i></a>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @foreach ($sp as $sp)
+                    <tr>
+                        <td><?php echo substr($sp->nama_ttd, 0, 7) ?></td>
+                        <td><?php $tglk = date_create($sp->tgl);
+                                echo date_format( $tglk , 'd M Y') ?>
+                        </td>
+                        <td>{{ $sp->hal }}</td>
+                        <td><a type="button" class="btn 
+                            <?php 
+                            if($sp->status=="Done"){
+                                echo "btn-primary text-white";
+                            }else if($sp->status=="Accepted"){
+                                echo "btn-success text-white";
+                            }else if($sp->status=="Declined"){
+                                echo "btn-danger text-white";
+                            }else if($sp->status=="On Process"){
+                                echo "btn-warning";
+                            }
+                            ?> btn-sm" style="border-radius:25px"><?php echo $sp->status ?></td>
+                        <td>
+                            <a href="/review?type=<?php echo md5('sp')?>&id={{ $sp->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <a href="/download?type=<?php echo md5('sp')?>&id={{ $sp->id_surat }}" class="btn btn-sm btn-primary ml-2 mr-2" title="Download"><i class="fas fa-download"></i></a>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @foreach ($sket as $sket)
+                    <tr>
+                        <td><?php echo substr($sket->nama_ttd, 0, 7) ?></td>
+                        <td><?php $tglk = date_create($sket->tgl);
+                                echo date_format( $tglk , 'd M Y') ?></td>
+                        <td>Permohonan Surat Mahasiswa Aktif</td>
+                        <td><a type="button" class="btn 
+                            <?php 
+                            if($sket->status=="Done"){
+                                echo "btn-primary text-white";
+                            }else if($sket->status=="Accepted"){
+                                echo "btn-success text-white";
+                            }else if($sket->status=="Declined"){
+                                echo "btn-danger text-white";
+                            }else if($sket->status=="On Process"){
+                                echo "btn-warning";
+                            }
+                            ?> btn-sm" style="border-radius:25px"><?php echo $sket->status ?></td>
+                        <td>
+                            <a href="/review?type=<?php echo md5('sket')?>&id={{ $sket->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <a href="/download?type=<?php echo md5('sket')?>&id={{ $sket->id_surat }}" class="btn btn-sm btn-primary ml-2 mr-2" title="Download"><i class="fas fa-download"></i></a>
                         </td>
                     </tr>
                     @endforeach

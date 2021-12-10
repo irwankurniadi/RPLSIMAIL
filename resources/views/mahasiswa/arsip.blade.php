@@ -105,13 +105,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review Mail | <?php echo strtoupper($_SESSION['role']) ?></title>
+    <title>Archive Mail | <?php echo strtoupper($_SESSION['role']) ?></title>
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script
-src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://use.fontawesome.com/a60ed8fcce.js"></script>
@@ -143,21 +140,11 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         <i class="fa fa-caret-left rotate"></i>
                     </button>
                     <div class="dropdown-container">
-                        <a href="/create?type=<?php echo md5("sp") ?>" class="ml-5">
-                            <caption>Personal Mail</caption>
-                        </a>
                         <a href="/create?type=<?php echo md5("sk") ?>" class="ml-5">
                             <caption>Activity Mail</caption>
                         </a>
-                        <a href="/create?type=<?php echo md5("dft") ?>" class="ml-5">
-                            <caption>Attendance Mail</caption>
-                        </a>
-                        </a>
                         <a href="/create?type=<?php echo md5("st") ?>" class="ml-5">
                             <caption>Assignment Mail</caption>
-                        </a>
-                        <a href="/create?type=<?php echo md5("ba") ?>" class="ml-5">
-                            <caption>News Mail</caption>
                         </a>
                     </div>
                     <button class="dropdown-btn ml-3">
@@ -190,141 +177,95 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 
     <div class="main">
         <p class="content" style="font-size:28px;font-family:michroma">
-        Review Mail / <?php echo strtoupper($_SESSION['role'])." ".$_SESSION['id'] ?></p>
+        Archive Mail / <?php echo strtoupper($_SESSION['role']) . " " . $_SESSION['id']?></p>
         <div class="ml-2 mr-2">
-            <?php 
-            if($rev=="s_person"){
-            ?>
-                @foreach ($cont as $c)
-                <?php 
-                $nos = $c->no_surat;
-                $ids = $c->id_user;
-                $tgl = $c->tgl;
-                $ev = $c->hal;  
-                $nm = $c->n_mitra;
-                $am = $c->al_mitra;
-                $itd = $c->id_ttd;
-                $ntd = $c->nama_ttd;
-                $stat = $c->status;
-                ?>
-                @endforeach
-                <table class="table table-sm" style="font-family:michroma">
-                <tr>
-                    <td width="140px">No.</td>
-                    <td>: 
-                        <?php if(!empty($nos)){
-                            echo $nos."A/FTI/2021";
-                        } else {
-                            echo "Mail has not been checked by Admin";
-                        }
-                        ?></td>
-                    <td align="right">Status : <label class="text-success"><?php echo $stat ?></label></td>
-                </tr>
+            <table class="table table-bordered text-center">
+                <thead class="thead-dark">
                     <tr>
-                        <td>Applicant ID</td>
-                        <td>: <?php echo $ids ?></td>
-                        <td></td>
+                        <th>No. </th>
+                        <th>Mail Type</th>
+                        <th>Date</th>
+                        <th>Case</th>
+                        <th>Status</th>
+                        <th style="width:150px">Action</th>
                     </tr>
-                <tr>
-                    <td>Mail Type</td>
-                    <td>: Personal Mail</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Date</td>
-                    <td>: <?php echo $tgl ?></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Event</td>
-                    <td>: <?php echo $ev ?></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Addressed to</td>
-                    <td>: <?php echo $nm." ".$am ?></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Signer</td>
-                    <td>: <?php echo $ntd." / ".$itd ?></td>
-                    <td></td>
-                </tr>
-            <?php 
-            }
-            ?>
-            <?php 
-            if($rev=="dft_hadir"){
-            ?>
-                @foreach ($cont as $c)
-                <?php 
-                $nos = $c->no_surat;
-                $ids = $c->id_user;
-                $tgl = $c->tgl;
-                $ev = $c->nama_acara;
-                $time = $c->jam;
-                $lok = $c->tempat;
-                $pem = $c->pembicara;
-                $ntd = $c->nama_ttd;
-                $stat = $c->status;
-                ?>
-                @endforeach
-                <table class="table table-sm" style="font-family:michroma">
-                <tr>
-                    <td width="140px">No.</td>
-                    <td>: 
-                        <?php if(!empty($nos)){
-                            echo $nos."/C/FTI/2021";
-                        } else {
-                            echo "Mail has not been checked by Admin";
-                        }
-                        ?></td>
-                    <td align="right">Status : <label class="text-success"><?php echo $stat ?></label></td>
-                </tr>
+                </thead>
+                <tbody>
+                    @foreach ($sk as $k)
                     <tr>
-                        <td>Applicant ID</td>
-                        <td>: <?php echo $ids ?></td>
-                        <td></td>
+                        <td style="width:130px"><?php 
+                            if(!empty($k->no_surat)){
+                                if($k->no_surat<10){
+                                    echo "00".$k->no_surat ."/B/FTI/2021";
+                                }else if($k->no_surat=10&&$k->no_surat<100){
+                                    echo "0".$k->no_surat ."/D/FTI/2021";
+                                }else{
+                                    echo $k->no_surat ."/D/FTI/2021";
+                                }
+                            }?></td>
+                        <td>Activity Mail</td>
+                        <td><?php $tglk = date_create($k->tgl);
+                                echo date_format( $tglk , 'd M Y') ?></td>
+                        <td>Permohonan Surat Mahasiswa Aktif</td>
+                        <td><a type="button" class="btn 
+                            <?php 
+                            if($k->status=="Done"){
+                                echo "btn-primary text-white";
+                            }else if($k->status=="Accepted"){
+                                echo "btn-success text-white";
+                            }else if($k->status=="Declined"){
+                                echo "btn-danger text-white";
+                            }else if($k->status=="On Process"){
+                                echo "btn-warning";
+                            }
+                            ?> btn-sm" style="border-radius:25px"><?php echo $k->status ?></td>
+                        <td>
+                            <a href="/review?type=<?php echo md5('sket')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <?php if($k->status=="Accepted"){?>
+                            <a href="/download?type=<?php echo md5('sket')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
+                            <?php
+                            }?>
+                        </td>
                     </tr>
-                <tr>
-                    <td>Mail Type</td>
-                    <td>: Personal Mail</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Event</td>
-                    <td>: <?php echo $ev ?></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Date</td>
-                    <td>: <?php echo $tgl ?></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Time</td>
-                    <td>: <?php echo $time." WIB"?></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Guest</td>
-                    <td>: <?php echo $pem ?></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Signer</td>
-                    <td>: <?php echo $ntd ?></td>
-                    <td></td>
-                </tr>
-            <?php 
-            }?>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <a href="javascript:history.go(-1)" style="float:right" class="btn btn-sm btn-dark">BACK</a>
-                    </td>
-                </tr>
+                    @endforeach
+                    @foreach ($st as $t)
+                    <tr>
+                        <td style="width:130px"><?php 
+                            if(!empty($t->no_surat)){
+                                if($t->no_surat<10){
+                                    echo "00".$t->no_surat ."/D/FTI/2021";
+                                }else if($t->no_surat=10&&$t->no_surat<100){
+                                    echo "0".$t->no_surat ."/D/FTI/2021";
+                                }else{
+                                    echo $t->no_surat ."/D/FTI/2021";
+                                }
+                            }?></td>
+                        <td>Assigment Mail</td>
+                        <td><?php $tglt = date_create($t->tgl_mulai);
+                                echo date_format( $tglt , 'd M Y') ?></td>
+                        <td>{{ $t->acara }}</td>
+                        <td><a type="button" class="btn 
+                            <?php 
+                            if($t->status=="Done"){
+                                echo "btn-primary text-white";
+                            }else if($t->status=="Accepted"){
+                                echo "btn-success text-white";
+                            }else if($t->status=="Declined"){
+                                echo "btn-danger text-white";
+                            }else if($t->status=="On Process"){
+                                echo "btn-warning";
+                            }
+                            ?> btn-sm" style="border-radius:25px"><?php echo $t->status ?></td>
+                        <td>
+                            <a href="/review?type=<?php echo md5('sk')?>&id={{ $t->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <?php if($t->status=="Accepted"){?>
+                            <a href="/download?type=<?php echo md5('sk')?>&id={{ $t->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
+                            <?php
+                            }?>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>
