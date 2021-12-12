@@ -196,7 +196,7 @@
                         <td><?php echo substr($dft->nama_ttd, 0, 7) ?></td>
                         <td><?php $tglk = date_create($dft->tgl);
                                 echo date_format( $tglk , 'd M Y') ?></td>
-                        <td>{{ $dft->keterangan }}</td>
+                        <td>{{ $dft->nama_acara }}</td>
                         <td><a type="button" class="btn 
                             <?php 
                             if($dft->status=="Done"){

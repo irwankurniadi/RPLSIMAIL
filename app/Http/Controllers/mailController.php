@@ -334,7 +334,16 @@ class mailController extends Controller
                 $ttd = $c->nama_ttd;
             }
         }else if($tp==md5('dft')){
-            
+            foreach($content as $c){
+                $no = $c->no_surat;
+                $id = $c->id_user;
+                $tg = $c->tgl;
+                $pemb = $c->pembicara;
+                $ac = $c->nama_acara;
+                $jam = $c->jam;
+                $lok = $c->tempat;
+                $ttd = $c->nama_ttd;
+            }
         }else if($tp==md5('ba')){
             $no = 1;
             $ttd = "72190317 - Irwan Kurniadi";
@@ -388,7 +397,13 @@ class mailController extends Controller
                      'tgls' => $tgls, 
                      'idttd' => $idttd];
         }else if($tp==md5('dft')){
-            
+            $data = ['nakeg' => $ac,
+                     'pemb' => $pemb,
+                     'time' => $jam, 
+                     'tgl' => $tg, 
+                     'namattd' => $namattd, 
+                     'lok' => $lok, 
+                     'idttd' => $idttd];
         }else if($tp==md5('ba')){
             $data = ['no' => $no];
         }

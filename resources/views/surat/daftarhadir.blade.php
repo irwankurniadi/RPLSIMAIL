@@ -41,27 +41,27 @@
                     <tr>
                         <td style="width:140px">Nama Kegiatan</td>
                         <td>:</td>
-                        <td>ss</td><br>
+                        <td>{{$nakeg}}</td><br>
                     </tr>
                     <tr>
                         <td>Hari, Tanggal</td>
                         <td>:</td>
-                        <td>Jumat, 4 Desember 2021</td><br>
+                        <td>{{$tgl}}</td><br>
                     </tr>
                     <tr>
                         <td>Waktu</td>
                         <td>:</td>
-                        <td>10:00 - 12:00 WIB</td><br>
+                        <td>{{$time}} WIB</td><br>
                     </tr>
                     <tr>
                         <td>Tempat</td>
                         <td>:</td>
-                        <td>UKDW</td><br>
+                        <td>{{$lok}}</td><br>
                     </tr>
                     <tr>
                         <td>Pembicara</td>
                         <td>:</td>
-                        <td>Bapak saya</td><br>
+                        <td>{{$pemb}}</td><br>
                     </tr>
                 </table>
             </div>
@@ -88,11 +88,11 @@
             <label for="jabatan"><b>Penanggung Jawab</b></label>
             <div style="padding-top:60px;padding-bottom:15px">
                 <label for="sign">
-                    ttd
+                    <img src="data:image/png;base64, {!! $qrcode !!}">
                 </label>
             </div>
-            <label for="namattd"><b><u>ss</u></b></label><br>
-            <label for="idttd">ss</label>
+            <label for="namattd"><b><u>{{$namattd}}</u></b></label><br>
+            <label for="idttd">{{$idttd}}</label>
             </div>
         </div>
     </div>
