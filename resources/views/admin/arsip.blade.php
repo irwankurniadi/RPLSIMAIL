@@ -189,7 +189,6 @@
         <p class="content" style="font-size:28px;font-family:michroma">
         Archive Mail / <?php echo strtoupper($_SESSION['role']) . " " . $_SESSION['id']?></p>
         <div class="ml-2 mr-2">
-            <p style="font-size:20px;font-family:michroma;font-weight: bold;">Mail Sent</p>
             <table class="table table-bordered text-center">
                 <thead class="thead-dark">
                     <tr>

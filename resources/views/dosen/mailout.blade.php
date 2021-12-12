@@ -241,7 +241,7 @@
                                     echo $t->no_surat ."/D/FTI/2021";
                                 }
                             }?></td>
-                        <td>Assigment Mail</td>
+                        <td>Assingment Mail</td>
                         <td><?php $tglt = date_create($t->tgl_mulai);
                                 echo date_format( $tglt , 'd M Y') ?></td>
                         <td>{{ $t->acara }}</td>

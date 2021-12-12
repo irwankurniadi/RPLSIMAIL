@@ -203,15 +203,6 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 <input type="text" class="form-control" name="req" id="req" placeholder="Requester's Name">
             </div>
             <div class="form-group">
-                <label for="assign">Assign tasks to</label>
-                <div class="form-inline">
-                <label for="tid">ID</label>
-                <input type="text" class="form-control ml-2 mr-2" style="width:180px" name="tid" id="tid" placeholder="Recipient's ID">
-                <label for="tname">Name</label>
-                <input type="text" class="form-control ml-2 mr-2" style="width:300px" name="tname" id="tname" placeholder="Recipient's Name">
-                </div>
-            </div>
-            <div class="form-group">
                 <label for="asdesc">Assignment Description</label>
                 <input type="text" class="form-control" name="desc" id="desc" placeholder="Assingment Description">
             </div>

@@ -25,7 +25,7 @@
                 <img src="https://i.ibb.co/qxKhd8f/ukdw.png" style="height:80px;padding-top:20px;padding-left:5px" alt="UKDW">
                 <section style="float:right;padding-left:80px">
                 <label for="univ" style="font-size:13pt;font-family:ebrima;word-spacing: 1pt">UNIVERSITAS KRISTEN DUTA WACANA</label><br>
-                <label for="univ" style="font-size:13pt;font-family:arial;word-spacing: 10pt"><b>FAKULTAS TEKNOLOGI INFORMASI</b></label>
+                <label for="univ" style="font-size:13pt;font-family:arial;word-spacing: 6pt"><b>FAKULTAS TEKNOLOGI INFORMASI</b></label>
                 <ul>
                     <li style="font-size:11pt;">PROGRAM STUDI INFORMATIKA</li>
                     <li style="font-size:11pt;">PROGRAM STUDI SISTEM INFORMASI</li>
@@ -41,7 +41,7 @@
         </div>
         <div style="padding-left:70px;padding-right:70px;padding-top:60px">
             <p>Sehubungan dengan permintaan dari {{$pemohon}}, untuk ini Dekan Fakultas Teknologi Informasi Universitas Kristen Duta Wacana Yogyakarta memberikan tugas kepada {{$role}} tersebut dibawah ini :</p>
-            <table style="padding-left:20%;padding-top:10px">
+            <table style="padding-left:13%;padding-top:10px">
                 <tr>
                     <td style="width:120px">Nama</td>
                     <td>:</td>
@@ -53,7 +53,7 @@
                     <td>{{$id}}</td>
                 </tr>
             </table>
-            <div style="padding-top:30px">
+            <div style="padding-top:20px">
                 <p>Untuk {{$ket}}, yang diselenggarakan pada :</p>
                 <table style="padding-left:13%;padding-top:10px">
                 <tr>
@@ -61,11 +61,12 @@
                     <td>:</td>
                     <td>
                         <?php
-                        if($tglm == $tgls){
-                            echo date_format($tglm, 'l, d F Y');
+                        $tglml = date_create($tglm);
+                        $tglsl = date_create($tgls);
+                        if($tglml == $tglsl){
+                            echo date_format($tglml, 'l, d F Y');
                         }else {
-                            $tglml = date_create($tglm);
-                            $tglsl = date_create($tgls);
+                            
                             echo date_format($tglml, 'l')." - ".date_format($tglsl, 'l').
                             ", ".date_format($tglml, 'd')." - ".date_format($tglsl, 'd F Y');
                         }

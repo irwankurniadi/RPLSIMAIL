@@ -281,7 +281,7 @@
                     @endforeach
                     @foreach ($sk as $k)
                     <tr>
-                        <td><?php if(strlen($k->pemohon)>10){echo substr($k->pemohon, 0, 10)."..";} ?></td>
+                        <td><?php if(strlen($k->pemohon)>10){echo substr($k->pemohon, 0, 8)."..";} ?></td>
                         <td>Assignment Mail</td>
                         <td><?php 
                                 $tgls = date_create($k->tgl_mulai);
