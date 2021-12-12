@@ -232,11 +232,6 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 <label for="date">Location</label>
                 <input type="text" class="form-control" name="lok" id="lok" placeholder="Event Location">
             </div>
-            <div class="form-group">
-                <label for="date">Signer</label>
-                <input type="text" class="form-control" name="ttd" id="ttd" placeholder="Signer's Name">
-            </div>
-            
             <div class="form-inline mb-5" style="float:right">
                 <input type="submit" class="btn btn-success btn-sm" value="Create">
                 <a href="/dash" class="btn btn-danger btn-sm text-white ml-2">Cancel</a>

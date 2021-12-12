@@ -86,7 +86,7 @@
         float: right;
         padding-top: 5px;
         padding-right: 55px;
-        padding-left: 52px;
+        padding-left: 44px;
         padding-bottom: 25px;
     }
     .rotate {
@@ -105,7 +105,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | <?php echo strtoupper($_SESSION['role']) ?></title>
+    <title>Review Mail | <?php echo strtoupper($_SESSION['role']) ?></title>
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -122,7 +122,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
         <label class="mr-auto" for="title" style="float:right;font-family:michroma">SI - MAIL</label>
         <nav class="mt-4">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="active">
+                <li class="nav-item">
                     <a href="/dash">
                         <i class="far fa-chart-bar mr-2"></i>Dashboard
                     </a>
@@ -137,10 +137,26 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         <i class="fas fa-id-card ml-3 mr-2"></i>
                         <caption>Profile</caption>
                     </a>
-                    <a href="/compose">
-                        <i class="fas fa-paper-plane ml-3 mr-2"></i>
-                        <caption>Compose [+]</caption>
-                    </a>
+                    <button class="dropdown-btn ml-3">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        <caption>Create</caption>
+                        <i class="fa fa-caret-left rotate"></i>
+                    </button>
+                    <div class="dropdown-container">
+                        <a href="/create?type=<?php echo md5("sk") ?>" class="ml-5">
+                            <caption>Activity Mail</caption>
+                        </a>
+                        <a href="/create?type=<?php echo md5("dft") ?>" class="ml-5">
+                            <caption>Attendance Mail</caption>
+                        </a>
+                        </a>
+                        <a href="/create?type=<?php echo md5("st") ?>" class="ml-5">
+                            <caption>Assignment Mail</caption>
+                        </a>
+                        <a href="/create?type=<?php echo md5("ba") ?>" class="ml-5">
+                            <caption>News Mail</caption>
+                        </a>
+                    </div>
                     <button class="dropdown-btn ml-3">
                         <i class="fas fa-envelope-open-text mr-2"></i>
                         <caption>Mail</caption>
@@ -174,18 +190,182 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
         Review Mail / <?php echo strtoupper($_SESSION['role'])." ".$_SESSION['id'] ?></p>
         <div class="ml-2 mr-2">
             <?php 
-            if($rev=="s_ket"){
+            if($rev=="s_person"){
             ?>
                 @foreach ($cont as $c)
                 <?php 
                 $nos = $c->no_surat;
                 $ids = $c->id_user;
-                $tgl = $c->date;
-                $sem = $c->sem;
-                $prodi = $c->prodi;
-                $fak = $c->fakult;
-                $ttd = $c->nama_ttd;
+                $tgl = $c->tgl;
+                $ev = $c->hal;  
+                $nm = $c->n_mitra;
+                $am = $c->al_mitra;
+                $ntd = $c->nama_ttd;
                 $stat = $c->status;
+                $al = $c->alasan;
+                ?>
+                @endforeach
+                <table class="table table-sm" style="font-family:michroma">
+                <tr>
+                    <td width="140px">No.</td>
+                    <td>: 
+                        <?php if(!empty($nos)){
+                            echo $nos."A/FTI/2021";
+                        } else {
+                            if($stat!="Declined"){
+                                echo "Mail has not been checked by Admin";
+                            }else {
+                                echo "Your Mail was Declined by Admin";
+                            }
+                        }
+                        if($stat=="On Process"){
+                            $txt = "text-warning";
+                        }else if($stat=="Accepted"){
+                            $txt = "text-success";
+                        }else if($stat=="Declined"){
+                            $txt = "text-danger";
+                        }
+                        ?></td>
+                    <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
+                </tr>
+                    <tr>
+                        <td>Applicant ID</td>
+                        <td>: <?php echo $ids ?></td>
+                        <td></td>
+                    </tr>
+                <tr>
+                    <td>Mail Type</td>
+                    <td>: Personal Mail</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Date</td>
+                    <td>: <?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Event</td>
+                    <td>: <?php echo $ev ?></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Addressed to</td>
+                    <td>: <?php echo $nm." ".$am ?></td>
+                    <td></td>
+                </tr>
+                <?php if(!empty($ntd)){?>
+                        <tr>
+                            <td>Signer</td>
+                            <td>: <?php echo $ntd ?></td>
+                            <td></td>
+                        </tr>
+                <?php }
+                    if($stat=="Declined"){?>
+                        <tr>
+                            <td>Decline Statement</td>
+                            <td>: <?php echo $al ?></td>
+                            <td></td>
+                        </tr>
+                <?php
+                    }
+                } else if($rev=="dft_hadir"){
+                ?>
+                @foreach ($cont as $c)
+                <?php 
+                $nos = $c->no_surat;
+                $ids = $c->id_user;
+                $tgl = $c->tgl;
+                $ev = $c->nama_acara;
+                $time = $c->jam;
+                $lok = $c->tempat;
+                $pem = $c->pembicara;
+                $ntd = $c->nama_ttd;
+                $stat = $c->status;
+                $al = $c->alasan;
+                ?>
+                @endforeach
+                <table class="table table-sm" style="font-family:michroma">
+                <tr>
+                    <td width="140px">No.</td>
+                    <td>: 
+                        <?php if(!empty($nos)){
+                            echo $nos."/C/FTI/2021";
+                        } else {
+                            if($stat!="Declined"){
+                                echo "Mail has not been checked by Admin";
+                            }else {
+                                echo "Your Mail was Declined by Admin";
+                            }
+                        }
+                        if($stat=="On Process"){
+                            $txt = "text-warning";
+                        }else if($stat=="Accepted"){
+                            $txt = "text-success";
+                        }else if($stat=="Declined"){
+                            $txt = "text-danger";
+                        }
+                        ?></td>
+                    <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
+                </tr>
+                    <tr>
+                        <td>Applicant ID</td>
+                        <td>: <?php echo $ids ?></td>
+                        <td></td>
+                    </tr>
+                <tr>
+                    <td>Mail Type</td>
+                    <td>: Attendance Mail</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Event</td>
+                    <td>: <?php echo $ev ?></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Date</td>
+                    <td>: <?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Time</td>
+                    <td>: <?php echo $time." WIB"?></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Guest</td>
+                    <td>: <?php echo $pem ?></td>
+                    <td></td>
+                </tr>
+            <?php if(!empty($ntd)){?>
+                <tr>
+                    <td>Signer</td>
+                    <td>: <?php echo $ntd ?></td>
+                    <td></td>
+                </tr>
+            <?php 
+                }
+            if($stat=="Declined"){?>
+                <tr>
+                    <td>Decline Statement</td>
+                    <td>: <?php echo $al ?></td>
+                    <td></td>
+                </tr>
+            <?php
+                }
+            } else if($rev=="s_ket"){
+            ?>
+                @foreach ($cont as $c)
+                <?php 
+                $nos = $c->no_surat;
+                $ids = $c->id_user;
+                $tgl = $c->tgl;
+                $sem = $c->semester;
+                $pro = $c->prodi;
+                $fak = $c->fakult;
+                $ntd = $c->nama_ttd;
+                $stat = $c->status;
+                $al = $c->alasan;
                 ?>
                 @endforeach
                 <table class="table table-sm" style="font-family:michroma">
@@ -195,10 +375,21 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         <?php if(!empty($nos)){
                             echo $nos."/B/FTI/2021";
                         } else {
-                            echo "Mail has not been checked by Admin";
+                            if($stat!="Declined"){
+                                echo "Mail has not been checked by Admin";
+                            }else {
+                                echo "Your Mail was Declined by Admin";
+                            }
+                        }
+                        if($stat=="On Process"){
+                            $txt = "text-warning";
+                        }else if($stat=="Accepted"){
+                            $txt = "text-success";
+                        }else if($stat=="Declined"){
+                            $txt = "text-danger";
                         }
                         ?></td>
-                    <td align="right">Status : <label class="text-success"><?php echo $stat ?></label></td>
+                    <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
                 </tr>
                     <tr>
                         <td>Applicant ID</td>
@@ -210,106 +401,258 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     <td>: Activity Mail</td>
                     <td></td>
                 </tr>
+                
                 <tr>
                     <td>Date</td>
-                    <td>: <?php echo $tgl ?></td>
+                    <td>: <?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
                     <td></td>
                 </tr>
+                <tr>
+                    <td>
+                        <?php 
+                        if($_SESSION['role']=="mahasiswa"){
+                            echo "Major";
+                        }else{
+                            echo "Course";
+                        }
+                        ?>
+                    </td>
+                    <td>: <?php echo $pro ?></td>
+                    <td></td>
+                </tr>
+                <?php
+                    if(!empty($sem)){?>
                 <tr>
                     <td>Semester</td>
                     <td>: <?php echo $sem ?></td>
                     <td></td>
                 </tr>
-                <tr>
-                    <td>Major</td>
-                    <td>: <?php echo $prodi ?></td>
-                    <td></td>
-                </tr>
+                <?php
+                    }
+                ?>
                 <tr>
                     <td>Faculty</td>
                     <td>: <?php echo $fak ?></td>
                     <td></td>
                 </tr>
-                <tr>
-                    <td>Signer</td>
-                    <td>: <?php echo $ttd ?></td>
-                    <td></td>
-                </tr>
-            <?php 
-            }
-            ?>
-            <?php 
-            if($rev=="sk_dekan"){
-            ?>
-                @foreach ($cont as $c)
+                <?php if(!empty($ntd)){?>
+                    <tr>
+                        <td>Signer</td>
+                        <td>: <?php echo $ntd ?></td>
+                        <td></td>
+                    </tr>
                 <?php 
-                $nos = $c->no_surat;
-                $ids = $c->id_user;
-                $pem = $c->pemohon;
-                $ket = $c->keterangan;
-                $ev = $c->acara;
-                $tgls = $c->tgl_mulai;
-                $tgle = $c->tgl_sls;
-                $lok = $c->tempat;
-                $ttd = $c->nama_ttd;
-                $stat = $c->status;
+                    }
+                    if($stat=="Declined"){?>
+                        <tr>
+                            <td>Decline Statement</td>
+                            <td>: <?php echo $al ?></td>
+                            <td></td>
+                        </tr>
+                <?php
+                    }
+                } else if($rev=="b_acara"){
                 ?>
-                @endforeach
-                <table class="table table-sm" style="font-family:michroma">
-                <tr>
-                    <td width="140px">No.</td>
-                    <td>: 
-                        <?php if(!empty($nos)){
-                            echo $nos."/C/FTI/2021";
-                        } else {
-                            echo "Mail has not been checked by Admin";
+                    @foreach ($cont as $c)
+                    <?php 
+                    $nos = $c->no_surat;
+                    $ids = $c->id_user;
+                    $tgl = $c->tgl;
+                    $tem = $c->tema;
+                    $na = $c->nama_acara;
+                    $lok = $c->tempat;
+                    $ket = $c->keterangan;
+                    $ntd = $c->nama_ttd;
+                    $ntd2 = $c->nama_ttd_2;
+                    $stat = $c->status;
+                    $al = $c->alasan;
+                    ?>
+                    @endforeach
+                    <table class="table table-sm" style="font-family:michroma">
+                    <tr>
+                        <td width="140px">No.</td>
+                        <td>: 
+                            <?php if(!empty($nos)){
+                                echo $nos."/E/FTI/2021";
+                            } else {
+                                if($stat!="Declined"){
+                                    echo "Mail has not been checked by Admin";
+                                }else {
+                                    echo "Your Mail was Declined by Admin";
+                                }
+                            }
+                            if($stat=="On Process"){
+                                $txt = "text-warning";
+                            }else if($stat=="Accepted"){
+                                $txt = "text-success";
+                            }else if($stat=="Declined"){
+                                $txt = "text-danger";
+                            }
+                            ?></td>
+                        <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
+                    </tr>
+                        <tr>
+                            <td>Applicant ID</td>
+                            <td>: <?php echo $ids ?></td>
+                            <td></td>
+                        </tr>
+                    <tr>
+                        <td>Mail Type</td>
+                        <td>: News Mail</td>
+                        <td></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Date</td>
+                        <td>: <?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Theme</td>
+                        <td>: <?php echo $tem ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Event</td>
+                        <td>: <?php echo $na ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Location</td>
+                        <td>: <?php echo $lok ?></td>
+                        <td></td>
+                    </tr>
+                    <?php if(!empty($ntd)){?>
+                    <tr>
+                        <td>Signer</td>
+                        <td>: <?php echo $ntd ?></td>
+                        <td></td>
+                    </tr>
+                    <?php if(!empty($ntd2)){?>
+                    <tr>
+                        <td>Guest Signer</td>
+                        <td>: <?php echo $ntd2 ?></td>
+                        <td></td>
+                    </tr>
+                    
+                <?php }
+                } 
+                if($stat=="Declined"){?>
+                    <tr>
+                        <td>Decline Statement</td>
+                        <td>: <?php echo $al ?></td>
+                        <td></td>
+                    </tr>
+                <?php
+                    }
+                }else if($rev=="sk_dekan"){
+                ?>
+                    @foreach ($cont as $c)
+                    <?php 
+                    $nos = $c->no_surat;
+                    $ids = $c->id_user;
+                    $tglm = $c->tgl_mulai;
+                    $tgls = $c->tgl_sls;
+                    $ph = $c->pemohon;
+                    $ket = $c->keterangan;
+                    $lok = $c->tempat;
+                    $acr = $c->acara;
+                    $ntd = $c->nama_ttd;
+                    $stat = $c->status;
+                    $al = $c->alasan;
+                    ?>
+                    @endforeach
+                    <table class="table table-sm" style="font-family:michroma">
+                    <tr>
+                        <td width="140px">No.</td>
+                        <td>: 
+                            <?php if(!empty($nos)){
+                                echo $nos."/D/FTI/2021";
+                            } else {
+                                if($stat!="Declined"){
+                                    echo "Mail has not been checked by Admin";
+                                }else {
+                                    echo "Your Mail was Declined by Admin";
+                                }
+                            }
+                            if($stat=="On Process"){
+                                $txt = "text-warning";
+                            }else if($stat=="Accepted"){
+                                $txt = "text-success";
+                            }else if($stat=="Declined"){
+                                $txt = "text-danger";
+                            }
+                            ?></td>
+                        <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
+                    </tr>
+                    <tr>
+                        <td>Applicant</td>
+                        <td>: <?php echo $ph ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Assign Task to</td>
+                        <td>: <?php echo $ids ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Mail Type</td>
+                        <td>: Assignment Mail</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td>: <?php 
+                        $tg = date_create($tglm); 
+                        $tgs = date_create($tgls); 
+                        if($tg==$tgs){
+                            echo date_format($tg, 'd F Y'); 
+                        }else{
+                            echo date_format($tg, 'd')."-".date_format($tgs, 'd F Y'); 
                         }
+                        
                         ?></td>
-                    <td align="right">Status : <label class="text-success"><?php echo $stat ?></label></td>
-                </tr>
-                <tr>
-                    <td>Applicant ID</td>
-                    <td>: <?php echo $ids ?></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Requester</td>
-                    <td>: <?php echo $pem ?></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Mail Type</td>
-                    <td>: Assigment Mail</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Event</td>
-                    <td>: <?php echo $ev ?></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Date</td>
-                    <td>: <?php $tglm = date_create($tgls); $tglsl = date_create($tgle); 
-                    echo date_format($tglm, 'd')." - ".date_format($tglsl, 'd M Y') ?></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Location</td>
-                    <td>: <?php echo $lok ?></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Signer</td>
-                    <td>: <?php echo $ttd ?></td>
-                    <td></td>
-                </tr>
-            <?php 
-            }?>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>: <?php echo $ket ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Event</td>
+                        <td>: <?php echo $acr ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Location</td>
+                        <td>: <?php echo $lok ?></td>
+                        <td></td>
+                    </tr>
+                    <?php if(!empty($ntd)){?>
+                        <tr>
+                            <td>Signer</td>
+                            <td>: <?php echo $ntd ?></td>
+                            <td></td>
+                        </tr>
+                    <?php 
+                        } 
+                    if($stat=="Declined"){?>
+                        <tr>
+                            <td>Decline Statement</td>
+                            <td>: <?php echo $al ?></td>
+                            <td></td>
+                        </tr>
+                    <?php }
+                    }
+                    ?>
                 <tr>
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="javascript:history.go(-1)" style="float:right" class="btn btn-sm btn-dark">BACK</a>
+                        <div class="mr-2" style="float:right">
+                        <a href="javascript:history.go(-1)"  class="btn btn-sm btn-dark">BACK</a>
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -335,6 +678,21 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
         $(".rotate").click(function () {
             $(this).toggleClass("down");
         })
+
+        $('input:checkbox').click(function() {
+            if (!$(this).is(':checked')) {
+                $(".guestsign").remove();
+                $(".selopt").prop('disabled', false);
+            } else {
+                $(".signer").append('<div class="form-inline guestsign"><input type="text" class="form-control ml-1" name="sn" id="sn" style="width:222px" placeholder="Signer\'s Name"><input type="text" class="form-control ml-2" name="cmp" id="cmp" style="width:230px" placeholder="Company"></div></div>');
+                <?php if($rev=="b_acara"){ ?>
+                    $(".selopt").prop('disabled', false);
+                <?php }else { ?>
+                    $(".selopt").prop('disabled', true);
+                <?php } ?>
+            }
+        });
+        
     </script>
 </body>
 </html>

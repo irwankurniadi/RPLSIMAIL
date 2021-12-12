@@ -216,7 +216,14 @@
                                 }
                             }?></td>
                         <td>{{ $s->id_user }}</td>
-                        <td>{{ $s->n_mitra }} {{ $s->al_mitra }}</td>
+                        <td>{{ $s->n_mitra }} 
+                            <?php if(strlen($s->al_mitra)>15){ 
+                                    echo substr($s->al_mitra, 0, 9)."..."; 
+                                  }else{
+                                    echo $s->al_mitra;
+                                  } 
+                            ?>
+                        </td>
                         <td><?php $tgl = date_create($s->tgl);
                                 echo date_format( $tgl, 'd M Y') ?></td>
                         <td>{{ $s->hal }}</td>

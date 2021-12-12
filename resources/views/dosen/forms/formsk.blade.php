@@ -189,21 +189,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 <input type="date" class="form-control" name="tgl" id="tgl">
             </div>
             <div class="form-group">
-                <label for="date">Location</label>
-                <input type="text" class="form-control" name="lok" id="lok" placeholder="Event Location">
-            </div>
-            <div class="form-group" id="applicant">
-                <label for="date">Applicant ID</label>
-                <input type="text" class="form-control mb-1" name="id" id="id" placeholder="Student ID">
-            </div>
-            <button type="button" class="btn-primary btn-sm mb-2" id="addBtn">Add Applicant</button>
-            <div class="form-group">
-                <label for="date">Addressed to</label>
-                <input type="text" class="form-control" name="tujuan" id="tujuan" placeholder="Recipient's Name">
+                <label for="date">Course</label>
+                <input type="text" class="form-control" name="maj" id="maj" placeholder="Course">
             </div>
             <div class="form-group">
-                <label for="date">Description</label>
-                <input type="text" class="form-control" name="desc" id="desc" placeholder="Letter Description">
+                <label for="date">Faculty</label>
+                <input type="text" class="form-control" name="fac" id="fac" placeholder="Faculty">
             </div>
             <div class="form-inline mb-5" style="float:right">
                 <input type="submit" class="btn btn-success btn-sm" value="Create">
@@ -231,18 +222,6 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
         $(".rotate").click(function () {
             $(this).toggleClass("down");
         })
-
-        // Node.js program to demonstrate the
-        // Node.js filehandle.read() Method
-
-        // Denotes total number of rows.
-        var rowIdx = 0;
-
-        // jQuery button click event to add a row.
-        $('#addBtn').on('click', function () {
-            // Adding a row inside the tbody.
-            $('#applicant').append(`<input type="text" class="form-control mb-1" name="idplus[]" id="id" placeholder="Student ID">`);
-        });
     </script>
 </body>
 </html>

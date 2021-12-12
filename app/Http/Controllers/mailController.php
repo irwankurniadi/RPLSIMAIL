@@ -69,15 +69,15 @@ class mailController extends Controller
 
     function accept(){
         $tp = $_GET['type'];
-        if($tp==md5('sp')){
+        if($tp==md5('s_person')){
             $srt = "s_person";
-        }else if($tp==md5('sket')){
+        }else if($tp==md5('s_ket')){
             $srt = "s_ket";
-        }else if($tp==md5('sk')){
+        }else if($tp==md5('sk_dekan')){
             $srt = "sk_dekan";
-        }else if($tp==md5('dft')){
+        }else if($tp==md5('dft_hadir')){
             $srt = "dft_hadir";
-        }else if($tp==md5('ba')){
+        }else if($tp==md5('b_acara')){
             $srt = "b_acara";
         }
         $cno = DB::select("SELECT count(no_surat) as nosurat FROM $srt");
@@ -86,23 +86,41 @@ class mailController extends Controller
         }
         $nobaru = $nums+1;
         $ttd = $_POST['ac'];
-        DB::update(
-            "UPDATE $srt SET status = 'Accepted', no_surat = '$nobaru', nama_ttd = '$ttd' WHERE id_surat = ?",
-            [$_GET['id']]
-        );
+        
+        if($srt=="b_acara"){
+            $sn = $_POST['sn']." - ".$_POST['cmp'];
+            DB::update(
+                "UPDATE $srt SET 
+                status = 'Accepted', 
+                no_surat = '$nobaru', 
+                nama_ttd = '$ttd',
+                nama_ttd_2 = '$sn'
+                WHERE id_surat = ?",
+                [$_GET['id']]
+            );
+        }else {
+            DB::update(
+                "UPDATE $srt SET 
+                status = 'Accepted', 
+                no_surat = '$nobaru', 
+                nama_ttd = '$ttd'
+                WHERE id_surat = ?",
+                [$_GET['id']]
+            );
+        }
         return redirect('/mailin');
     }
     function decline(){
         $tp = $_GET['type'];
-        if($tp==md5('sp')){
+        if($tp==md5('s_person')){
             $srt = "s_person";
-        }else if($tp==md5('sket')){
+        }else if($tp==md5('s_ket')){
             $srt = "s_ket";
-        }else if($tp==md5('st')){
+        }else if($tp==md5('sk_dekan')){
             $srt = "sk_dekan";
-        }else if($tp==md5('dft')){
+        }else if($tp==md5('dft_hadir')){
             $srt = "dft_hadir";
-        }else if($tp==md5('ba')){
+        }else if($tp==md5('b_acara')){
             $srt = "b_acara";
         }
         $al = $_POST['dc'];
@@ -199,10 +217,8 @@ class mailController extends Controller
             $et = $_POST['tm_e'];
             $lok = $_POST['lok'];
             $desc = $_POST['desc'];
-            $sign1 = $_POST['sign1'];
-            $sign2 = $_POST['sign2'];
 
-            DB::insert("INSERT INTO $dbs (id_user, tgl, tema, nama_acara, tempat, keterangan, nama_ttd_1, nama_ttd_2, status) values (?,?,?,?,?,?,?,?,?)", [$id, "$tgl", "$et", $en, "$lok", "$desc", $sign1, "$sign2", 'On Process']);
+            DB::insert("INSERT INTO $dbs (id_user, tgl, tema, nama_acara, tempat, keterangan, status) values (?,?,?,?,?,?,?)", [$id, "$tgl", "$et", $en, "$lok", "$desc",'On Process']);
         }else if($dbs=="dft_hadir"){
             if($_SESSION['role']=='admin'){
                 $id = $_POST['id'];
@@ -217,7 +233,7 @@ class mailController extends Controller
             $guest = $_POST['guest'];
             $evman = $_POST['evman'];
 
-            DB::insert("INSERT INTO $dbs (id_user, tgl, jam, nama_acara, tempat, pembicara, nama_ttd, status) values (?,?,?,?,?,?,?,?,?)", [$id, "$tgl", "$st."-".$et", $en, "$lok", "$guest", $evman, "$sign2", 'On Process']);
+            DB::insert("INSERT INTO $dbs (id_user, tgl, jam, nama_acara, tempat, pembicara, nama_ttd, status) values (?,?,?,?,?,?,?,?)", [$id, "$tgl", "$st - $et", $en, "$lok", "$guest", $evman, 'On Process']);
         }
         else if($dbs=="s_ket"){
             if($_SESSION['role']=='admin'){
@@ -230,7 +246,7 @@ class mailController extends Controller
             $maj = $_POST['maj'];
             $fac = $_POST['fac'];
 
-            DB::insert("INSERT INTO $dbs (id_user, date, sem, prodi, fakult, status) values (?,?,?,?,?,?)", [$id, "$tgl", "$sem", "$maj", "$fac", 'On Process']);
+            DB::insert("INSERT INTO $dbs (id_user, tgl, semester, prodi, fakult, status) values (?,?,?,?,?,?)", [$id, "$tgl", "$sem", "$maj", "$fac", 'On Process']);
         }
         else if($dbs=="sk_dekan"){
             if($_SESSION['role']=="admin"){
@@ -399,6 +415,11 @@ class mailController extends Controller
             $sk = DB::select("SELECT * FROM s_ket WHERE id_user = '".$_SESSION['id']."'");
 
         if($_SESSION['role'] == "admin"){
+            $sp = DB::select("SELECT * FROM s_person");
+            $ba = DB::select("SELECT * FROM b_acara");
+            $df = DB::select("SELECT * FROM dft_hadir");
+            $st = DB::select("SELECT * FROM sk_dekan");
+            $sk = DB::select("SELECT * FROM s_ket");
             return view('admin/arsip', ['sp' => $sp, 'ba' => $ba, 'df' => $df, 'sk' => $sk, 'st' => $st]);
         }else if($_SESSION['role'] == "mahasiswa"){
             return view('mahasiswa/arsip', ['sk' => $sk, 'st' => $st]);

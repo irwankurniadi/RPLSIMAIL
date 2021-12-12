@@ -203,9 +203,9 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 $ev = $c->hal;  
                 $nm = $c->n_mitra;
                 $am = $c->al_mitra;
-                $itd = $c->id_ttd;
                 $ntd = $c->nama_ttd;
                 $stat = $c->status;
+                $al = $c->alasan;
                 ?>
                 @endforeach
                 <table class="table table-sm" style="font-family:michroma">
@@ -215,10 +215,21 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         <?php if(!empty($nos)){
                             echo $nos."A/FTI/2021";
                         } else {
-                            echo "Mail has not been checked by Admin";
+                            if($stat!="Declined"){
+                                echo "Mail has not been checked by Admin";
+                            }else {
+                                echo "Your Mail was Declined by Admin";
+                            }
+                        }
+                        if($stat=="On Process"){
+                            $txt = "text-warning";
+                        }else if($stat=="Accepted"){
+                            $txt = "text-success";
+                        }else if($stat=="Declined"){
+                            $txt = "text-danger";
                         }
                         ?></td>
-                    <td align="right">Status : <label class="text-success"><?php echo $stat ?></label></td>
+                    <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
                 </tr>
                     <tr>
                         <td>Applicant ID</td>
@@ -232,7 +243,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 </tr>
                 <tr>
                     <td>Date</td>
-                    <td>: <?php echo $tgl ?></td>
+                    <td>: <?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -245,17 +256,23 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     <td>: <?php echo $nm." ".$am ?></td>
                     <td></td>
                 </tr>
-                <tr>
-                    <td>Signer</td>
-                    <td>: <?php echo $ntd." / ".$itd ?></td>
-                    <td></td>
-                </tr>
-            <?php 
-            }
-            ?>
-            <?php 
-            if($rev=="dft_hadir"){
-            ?>
+                <?php if(!empty($ntd)){?>
+                        <tr>
+                            <td>Signer</td>
+                            <td>: <?php echo $ntd ?></td>
+                            <td></td>
+                        </tr>
+                <?php }
+                    if($stat=="Declined"){?>
+                        <tr>
+                            <td>Decline Statement</td>
+                            <td>: <?php echo $al ?></td>
+                            <td></td>
+                        </tr>
+                <?php
+                    }
+                } else if($rev=="dft_hadir"){
+                ?>
                 @foreach ($cont as $c)
                 <?php 
                 $nos = $c->no_surat;
@@ -267,6 +284,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 $pem = $c->pembicara;
                 $ntd = $c->nama_ttd;
                 $stat = $c->status;
+                $al = $c->alasan;
                 ?>
                 @endforeach
                 <table class="table table-sm" style="font-family:michroma">
@@ -276,10 +294,21 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         <?php if(!empty($nos)){
                             echo $nos."/C/FTI/2021";
                         } else {
-                            echo "Mail has not been checked by Admin";
+                            if($stat!="Declined"){
+                                echo "Mail has not been checked by Admin";
+                            }else {
+                                echo "Your Mail was Declined by Admin";
+                            }
+                        }
+                        if($stat=="On Process"){
+                            $txt = "text-warning";
+                        }else if($stat=="Accepted"){
+                            $txt = "text-success";
+                        }else if($stat=="Declined"){
+                            $txt = "text-danger";
                         }
                         ?></td>
-                    <td align="right">Status : <label class="text-success"><?php echo $stat ?></label></td>
+                    <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
                 </tr>
                     <tr>
                         <td>Applicant ID</td>
@@ -288,7 +317,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     </tr>
                 <tr>
                     <td>Mail Type</td>
-                    <td>: Personal Mail</td>
+                    <td>: Attendance Mail</td>
                     <td></td>
                 </tr>
                 <tr>
@@ -298,7 +327,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 </tr>
                 <tr>
                     <td>Date</td>
-                    <td>: <?php echo $tgl ?></td>
+                    <td>: <?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -311,18 +340,368 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     <td>: <?php echo $pem ?></td>
                     <td></td>
                 </tr>
+            <?php if(!empty($ntd)){?>
                 <tr>
                     <td>Signer</td>
                     <td>: <?php echo $ntd ?></td>
                     <td></td>
                 </tr>
             <?php 
-            }?>
+                }
+            if($stat=="Declined"){?>
+                <tr>
+                    <td>Decline Statement</td>
+                    <td>: <?php echo $al ?></td>
+                    <td></td>
+                </tr>
+            <?php
+                }
+            } else if($rev=="s_ket"){
+            ?>
+                @foreach ($cont as $c)
+                <?php 
+                $nos = $c->no_surat;
+                $ids = $c->id_user;
+                $tgl = $c->tgl;
+                $sem = $c->semester;
+                $pro = $c->prodi;
+                $fak = $c->fakult;
+                $ntd = $c->nama_ttd;
+                $stat = $c->status;
+                $al = $c->alasan;
+                ?>
+                @endforeach
+                <table class="table table-sm" style="font-family:michroma">
+                <tr>
+                    <td width="140px">No.</td>
+                    <td>: 
+                        <?php if(!empty($nos)){
+                            echo $nos."/B/FTI/2021";
+                        } else {
+                            if($stat!="Declined"){
+                                echo "Mail has not been checked by Admin";
+                            }else {
+                                echo "Your Mail was Declined by Admin";
+                            }
+                        }
+                        if($stat=="On Process"){
+                            $txt = "text-warning";
+                        }else if($stat=="Accepted"){
+                            $txt = "text-success";
+                        }else if($stat=="Declined"){
+                            $txt = "text-danger";
+                        }
+                        ?></td>
+                    <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
+                </tr>
+                    <tr>
+                        <td>Applicant ID</td>
+                        <td>: <?php echo $ids ?></td>
+                        <td></td>
+                    </tr>
+                <tr>
+                    <td>Mail Type</td>
+                    <td>: Activity Mail</td>
+                    <td></td>
+                </tr>
+                
+                <tr>
+                    <td>Date</td>
+                    <td>: <?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Major</td>
+                    <td>: <?php echo $pro ?></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Faculty</td>
+                    <td>: <?php echo $fak ?></td>
+                    <td></td>
+                </tr>
+                <?php if(!empty($ntd)){?>
+                    <tr>
+                        <td>Signer</td>
+                        <td>: <?php echo $ntd ?></td>
+                        <td></td>
+                    </tr>
+                <?php 
+                    }
+                    if($stat=="Declined"){?>
+                        <tr>
+                            <td>Decline Statement</td>
+                            <td>: <?php echo $al ?></td>
+                            <td></td>
+                        </tr>
+                <?php
+                    }
+                } else if($rev=="b_acara"){
+                ?>
+                    @foreach ($cont as $c)
+                    <?php 
+                    $nos = $c->no_surat;
+                    $ids = $c->id_user;
+                    $tgl = $c->tgl;
+                    $tem = $c->tema;
+                    $na = $c->nama_acara;
+                    $lok = $c->tempat;
+                    $ket = $c->keterangan;
+                    $ntd = $c->nama_ttd;
+                    $ntd2 = $c->nama_ttd_2;
+                    $stat = $c->status;
+                    $al = $c->alasan;
+                    ?>
+                    @endforeach
+                    <table class="table table-sm" style="font-family:michroma">
+                    <tr>
+                        <td width="140px">No.</td>
+                        <td>: 
+                            <?php if(!empty($nos)){
+                                echo $nos."/E/FTI/2021";
+                            } else {
+                                if($stat!="Declined"){
+                                    echo "Mail has not been checked by Admin";
+                                }else {
+                                    echo "Your Mail was Declined by Admin";
+                                }
+                            }
+                            if($stat=="On Process"){
+                                $txt = "text-warning";
+                            }else if($stat=="Accepted"){
+                                $txt = "text-success";
+                            }else if($stat=="Declined"){
+                                $txt = "text-danger";
+                            }
+                            ?></td>
+                        <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
+                    </tr>
+                        <tr>
+                            <td>Applicant ID</td>
+                            <td>: <?php echo $ids ?></td>
+                            <td></td>
+                        </tr>
+                    <tr>
+                        <td>Mail Type</td>
+                        <td>: News Mail</td>
+                        <td></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Date</td>
+                        <td>: <?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Theme</td>
+                        <td>: <?php echo $tem ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Event</td>
+                        <td>: <?php echo $na ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Location</td>
+                        <td>: <?php echo $lok ?></td>
+                        <td></td>
+                    </tr>
+                    <?php if(!empty($ntd)){?>
+                    <tr>
+                        <td>Signer</td>
+                        <td>: <?php echo $ntd ?></td>
+                        <td></td>
+                    </tr>
+                    <?php if(!empty($ntd2)){?>
+                    <tr>
+                        <td>Guest Signer</td>
+                        <td>: <?php echo $ntd2 ?></td>
+                        <td></td>
+                    </tr>
+                    
+                <?php }
+                } 
+                if($stat=="Declined"){?>
+                    <tr>
+                        <td>Decline Statement</td>
+                        <td>: <?php echo $al ?></td>
+                        <td></td>
+                    </tr>
+                <?php
+                    }
+                }else if($rev=="sk_dekan"){
+                ?>
+                    @foreach ($cont as $c)
+                    <?php 
+                    $nos = $c->no_surat;
+                    $ids = $c->id_user;
+                    $tglm = $c->tgl_mulai;
+                    $tgls = $c->tgl_sls;
+                    $ph = $c->pemohon;
+                    $ket = $c->keterangan;
+                    $lok = $c->tempat;
+                    $acr = $c->acara;
+                    $ntd = $c->nama_ttd;
+                    $stat = $c->status;
+                    $al = $c->alasan;
+                    ?>
+                    @endforeach
+                    <table class="table table-sm" style="font-family:michroma">
+                    <tr>
+                        <td width="140px">No.</td>
+                        <td>: 
+                            <?php if(!empty($nos)){
+                                echo $nos."/D/FTI/2021";
+                            } else {
+                                if($stat!="Declined"){
+                                    echo "Mail has not been checked by Admin";
+                                }else {
+                                    echo "Your Mail was Declined by Admin";
+                                }
+                            }
+                            if($stat=="On Process"){
+                                $txt = "text-warning";
+                            }else if($stat=="Accepted"){
+                                $txt = "text-success";
+                            }else if($stat=="Declined"){
+                                $txt = "text-danger";
+                            }
+                            ?></td>
+                        <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
+                    </tr>
+                    <tr>
+                        <td>Applicant</td>
+                        <td>: <?php echo $ph ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Assign Task to</td>
+                        <td>: <?php echo $ids ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Mail Type</td>
+                        <td>: Assignment Mail</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td>: <?php 
+                        $tg = date_create($tglm); 
+                        $tgs = date_create($tgls); 
+                        if($tg==$tgs){
+                            echo date_format($tg, 'd F Y'); 
+                        }else{
+                            echo date_format($tg, 'd')."-".date_format($tgs, 'd F Y'); 
+                        }
+                        
+                        ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>: <?php echo $ket ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Event</td>
+                        <td>: <?php echo $acr ?></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Location</td>
+                        <td>: <?php echo $lok ?></td>
+                        <td></td>
+                    </tr>
+                    <?php if(!empty($ntd)){?>
+                        <tr>
+                            <td>Signer</td>
+                            <td>: <?php echo $ntd ?></td>
+                            <td></td>
+                        </tr>
+                    <?php 
+                        } 
+                    if($stat=="Declined"){?>
+                        <tr>
+                            <td>Decline Statement</td>
+                            <td>: <?php echo $al ?></td>
+                            <td></td>
+                        </tr>
+                    <?php }
+                    }
+                    ?>
                 <tr>
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="javascript:history.go(-1)" style="float:right" class="btn btn-sm btn-dark">BACK</a>
+                        <div class="mr-2" style="float:right">
+                        <a href="javascript:history.go(-1)"  class="btn btn-sm btn-dark">BACK</a>
+                        <?php if($stat=="On Process"){ ?>
+                            <button type="button" class="btn btn-success btn-sm ml-2 mr-2" title="Accept" data-toggle="modal" data-target="#accModal">
+                            <i class="fas fa-check-square"></i>
+                            </button>
+                            <div class="modal fade" id="accModal" tabindex="-1" role="dialog" aria-labelledby="accModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="accModalLabel">Accept Mail</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="#mod">
+                                    <form method="POST" action="/accept?type=<?php echo md5("$rev")?>&id={{ $c->id_surat }}">
+                                    @csrf
+                                    <div class="input-group mb-3">
+                                        <div class="select" style="width:100%">
+                                            <select class="custom-select selopt" name="ac">
+                                                <option selected>Signer?</option>
+                                                <option value="984E249 - Budi Susanto, S.Kom., M.T.">984E249 - Budi Susanto, S.Kom., M.T.</option>
+                                                <option value="004E289 - Restyandito, S.Kom., MSIS.,Ph.D.">004E289 - Restyandito, S.Kom., MSIS.,Ph.D.</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group mt-2 mb-3">
+                                            <input type="checkbox" aria-label="Checkbox" name="ceksign" id="ceksign" class="ml-2 mt-2 mr-2">
+                                            <label for="guesign">Guest Signer</label>
+                                            <div class="form-group signer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Submit">
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <button type="button" class="btn btn-danger btn-sm" title="Decline"data-toggle="modal" data-target="#dcModal">
+                            <i class="fas fa-times"></i>
+                            </button>
+                            <div class="modal fade" id="dcModal" tabindex="-1" role="dialog" aria-labelledby="dcModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="dcModalLabel">Decline Mail</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="#mod">
+                                    <form method="POST" action="/decline?type=<?php echo md5("$rev")?>&id={{ $c->id_surat }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <textarea class="input" name="dc" rows="5" cols="55" wrap="soft" style="overflow:hidden; resize:none; border-radius:5px" placeholder="  Enter the reason for decline this mail"></textarea>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Submit">
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        <?php } ?>
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -348,6 +727,21 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
         $(".rotate").click(function () {
             $(this).toggleClass("down");
         })
+
+        $('input:checkbox').click(function() {
+            if (!$(this).is(':checked')) {
+                $(".guestsign").remove();
+                $(".selopt").prop('disabled', false);
+            } else {
+                $(".signer").append('<div class="form-inline guestsign"><input type="text" class="form-control ml-1" name="sn" id="sn" style="width:222px" placeholder="Signer\'s Name"><input type="text" class="form-control ml-2" name="cmp" id="cmp" style="width:230px" placeholder="Company"></div></div>');
+                <?php if($rev=="b_acara"){ ?>
+                    $(".selopt").prop('disabled', false);
+                <?php }else { ?>
+                    $(".selopt").prop('disabled', true);
+                <?php } ?>
+            }
+        });
+        
     </script>
 </body>
 </html>

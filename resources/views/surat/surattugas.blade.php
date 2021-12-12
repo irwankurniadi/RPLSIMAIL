@@ -62,12 +62,12 @@
                     <td>
                         <?php
                         if($tglm == $tgls){
-                            echo date_format($tglm, 'l, d M Y');
+                            echo date_format($tglm, 'l, d F Y');
                         }else {
                             $tglml = date_create($tglm);
                             $tglsl = date_create($tgls);
                             echo date_format($tglml, 'l')." - ".date_format($tglsl, 'l').
-                            ", ".date_format($tglml, 'd')." - ".date_format($tglsl, 'd M Y');
+                            ", ".date_format($tglml, 'd')." - ".date_format($tglsl, 'd F Y');
                         }
                         ?>
                     </td>

@@ -194,9 +194,8 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No. </th>
-                        <th>Applicant ID</th>
-                        <th>Addressed to</th>
-                        <th>Date</th>
+                        <th style="width:140px">Applicant ID</th>
+                        <th style="width:120px">Date</th>
                         <th>Case</th>
                         <th>Status</th>
                         <th style="width:150px">Action</th>
@@ -216,10 +215,16 @@
                                 }
                             }?></td>
                         <td>{{ $s->id_user }}</td>
-                        <td>{{ $s->n_mitra }} {{ $s->al_mitra }}</td>
-                        <td><?php $tgl = date_create($s->tgl);
+                       <td><?php $tgl = date_create($s->tgl);
                                 echo date_format( $tgl, 'd M Y') ?></td>
-                        <td>{{ $s->hal }}</td>
+                        <td>
+                            <?php if(strlen($s->hal)>30){ 
+                                    echo substr($s->hal, 0, 25)."..."; 
+                                  }else{
+                                    echo $s->hal;
+                                  } 
+                            ?>
+                        </td>
                         <td><a type="button" class="btn 
                             <?php 
                             if($s->status=="Done"){
@@ -238,39 +243,38 @@
                        </td>
                     </tr>
                     @endforeach
-                    @foreach ($ba as $b)
+                    @foreach ($sk as $k)
                     <tr>
                         <td style="width:130px"><?php 
-                            if(!empty($b->no_surat)){
-                                if($b->no_surat<10){
-                                    echo "00".$b->no_surat ."/E/FTI/2021";
-                                }else if($b->no_surat=10&&$b->no_surat<100){
-                                    echo "0".$b->no_surat ."/E/FTI/2021";
+                            if(!empty($k->no_surat)){
+                                if($k->no_surat<10){
+                                    echo "00".$k->no_surat ."/B/FTI/2021";
+                                }else if($k->no_surat=10&&$k->no_surat<100){
+                                    echo "0".$k->no_surat ."/B/FTI/2021";
                                 }else{
-                                    echo $b->no_surat ."/E/FTI/2021";
+                                    echo $k->no_surat ."/B/FTI/2021";
                                 }
                             }?></td></td>
-                        <td>{{ $b->id_user }}</td>
-                        <td>{{ $b->nama_ttd_1 }} & {{ $b->nama_ttd_2 }}</td>
-                        <td><?php $tglba = date_create($b->tgl);
-                                echo date_format( $tglba , 'd M Y') ?></td>
-                        <td>{{ $b->nama_acara }}</td>
+                        <td>{{ $k->id_user }}</td>
+                        <td><?php $tglk = date_create($k->tgl);
+                                echo date_format( $tglk , 'd M Y') ?></td>
+                        <td>Permohonan Surat Keterangan</td>
                         <td><a type="button" class="btn 
                             <?php 
-                            if($b->status=="Done"){
+                            if($k->status=="Done"){
                                 echo "btn-primary text-white";
-                            }else if($b->status=="Accepted"){
+                            }else if($k->status=="Accepted"){
                                 echo "btn-success text-white";
-                            }else if($b->status=="Declined"){
+                            }else if($k->status=="Declined"){
                                 echo "btn-danger text-white";
-                            }else if($b->status=="On Process"){
+                            }else if($k->status=="On Process"){
                                 echo "btn-warning";
                             }
-                            ?> btn-sm" style="border-radius:25px"><?php echo $b->status ?></td>
+                            ?> btn-sm" style="border-radius:25px"><?php echo $k->status ?></td>
                         <td>
-                            <a href="/review?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <a href="/download?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
-                       </td>
+                            <a href="/review?type=<?php echo md5('sket')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <a href="/download?type=<?php echo md5('sket')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
+                        </td>
                     </tr>
                     @endforeach
                     @foreach ($df as $d)
@@ -286,10 +290,16 @@
                                 }
                             }?></td></td>
                         <td>{{ $d->id_user }}</td>
-                        <td>{{ $d->nama_ttd }}</td>
                         <td><?php $tgldf = date_create($d->tgl);
                                 echo date_format( $tgldf , 'd M Y') ?></td>
-                        <td>{{ $d->nama_acara }}</td>
+                        <td>
+                            <?php if(strlen($d->nama_acara)>30){ 
+                                    echo substr($d->nama_acara, 0, 25)."...";
+                                  }else{
+                                    echo $d->nama_acara;
+                                  } 
+                            ?>
+                        </td>
                         <td><a type="button" class="btn 
                             <?php 
                             if($d->status=="Done"){
@@ -308,74 +318,86 @@
                         </td>
                     </tr>
                     @endforeach
-                    @foreach ($sk as $k)
+                    @foreach ($st as $t)
                     <tr>
                         <td style="width:130px"><?php 
-                            if(!empty($k->no_surat)){
-                                if($k->no_surat<10){
-                                    echo "00".$k->no_surat ."/D/FTI/2021";
-                                }else if($k->no_surat=10&&$k->no_surat<100){
-                                    echo "0".$k->no_surat ."/D/FTI/2021";
+                            if(!empty($t->no_surat)){
+                                if($t->no_surat<10){
+                                    echo "00".$t->no_surat ."/D/FTI/2021";
+                                }else if($t->no_surat=10&&$t->no_surat<100){
+                                    echo "0".$t->no_surat ."/D/FTI/2021";
                                 }else{
-                                    echo $k->no_surat ."/D/FTI/2021";
+                                    echo $t->no_surat ."/D/FTI/2021";
                                 }
                             }?></td></td>
-                        <td>{{ $k->pemohon }}</td>
-                        <td>{{ $k->nama_ttd }}</td>
-                        <td><?php $tglk = date_create($k->tgl_mulai);
+                        <td>{{ $t->pemohon }}</td>
+                        <td><?php $tglk = date_create($t->tgl_mulai);
                                 echo date_format( $tglk , 'd M Y') ?></td>
-                        <td>{{ $k->acara }}</td>
+                        <td>
+                            <?php if(strlen($t->acara)>30){ 
+                                    echo substr($t->acara, 0, 25)."..."; 
+                                  }else{
+                                    echo $t->acara;
+                                  } 
+                            ?>
+                        </td>
                         <td><a type="button" class="btn 
                             <?php 
-                            if($k->status=="Done"){
+                            if($t->status=="Done"){
                                 echo "btn-primary text-white";
-                            }else if($k->status=="Accepted"){
+                            }else if($t->status=="Accepted"){
                                 echo "btn-success text-white";
-                            }else if($k->status=="Declined"){
+                            }else if($t->status=="Declined"){
                                 echo "btn-danger text-white";
-                            }else if($k->status=="On Process"){
+                            }else if($t->status=="On Process"){
                                 echo "btn-warning";
                             }
-                            ?> btn-sm" style="border-radius:25px"><?php echo $k->status ?></td>
+                            ?> btn-sm" style="border-radius:25px"><?php echo $t->status ?></td>
                         <td>
-                            <a href="/review?type=<?php echo md5('sk')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <a href="/download?type=<?php echo md5('sk')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
+                            <a href="/review?type=<?php echo md5('sk')?>&id={{ $t->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <a href="/download?type=<?php echo md5('sk')?>&id={{ $t->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
                         </td>
                     </tr>
                     @endforeach
-                    @foreach ($sk as $k)
+                    @foreach ($ba as $b)
                     <tr>
                         <td style="width:130px"><?php 
-                            if(!empty($k->no_surat)){
-                                if($k->no_surat<10){
-                                    echo "00".$k->no_surat ."/D/FTI/2021";
-                                }else if($k->no_surat=10&&$k->no_surat<100){
-                                    echo "0".$k->no_surat ."/D/FTI/2021";
+                            if(!empty($b->no_surat)){
+                                if($b->no_surat<10){
+                                    echo "00".$b->no_surat ."/E/FTI/2021";
+                                }else if($b->no_surat=10&&$b->no_surat<100){
+                                    echo "0".$b->no_surat ."/E/FTI/2021";
                                 }else{
-                                    echo $k->no_surat ."/D/FTI/2021";
+                                    echo $b->no_surat ."/E/FTI/2021";
                                 }
                             }?></td></td>
-                        <td>{{ $k->pemohon }}</td>
-                        <td>{{ $k->nama_ttd }}</td>
-                        <td><?php $tglk = date_create($k->tgl_mulai);
-                                echo date_format( $tglk , 'd M Y') ?></td>
-                        <td>{{ $k->acara }}</td>
+                        <td>{{ $b->id_user }}</td>
+                        <td><?php $tglba = date_create($b->tgl);
+                                echo date_format( $tglba , 'd M Y') ?></td>
+                        <td>
+                            <?php if(strlen($b->nama_acara)>30){ 
+                                    echo substr($b->nama_acara, 0, 25)."..."; 
+                                  }else{
+                                    echo $b->nama_acara;
+                                  } 
+                            ?>
+                        </td>
                         <td><a type="button" class="btn 
                             <?php 
-                            if($k->status=="Done"){
+                            if($b->status=="Done"){
                                 echo "btn-primary text-white";
-                            }else if($k->status=="Accepted"){
+                            }else if($b->status=="Accepted"){
                                 echo "btn-success text-white";
-                            }else if($k->status=="Declined"){
+                            }else if($b->status=="Declined"){
                                 echo "btn-danger text-white";
-                            }else if($k->status=="On Process"){
+                            }else if($b->status=="On Process"){
                                 echo "btn-warning";
                             }
-                            ?> btn-sm" style="border-radius:25px"><?php echo $k->status ?></td>
+                            ?> btn-sm" style="border-radius:25px"><?php echo $b->status ?></td>
                         <td>
-                            <a href="/review?type=<?php echo md5('sk')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <a href="/download?type=<?php echo md5('sk')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
-                        </td>
+                            <a href="/review?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <a href="/download?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
+                       </td>
                     </tr>
                     @endforeach
                 </tbody>
