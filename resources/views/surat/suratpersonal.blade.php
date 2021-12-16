@@ -25,7 +25,7 @@
                 <img src="https://i.ibb.co/qxKhd8f/ukdw.png" style="height:80px;padding-top:20px;padding-left:5px" alt="UKDW">
                 <section style="float:right;padding-left:80px">
                 <label for="univ" style="font-size:13pt;font-family:ebrima;word-spacing: 1pt">UNIVERSITAS KRISTEN DUTA WACANA</label><br>
-                <label for="univ" style="font-size:13pt;font-family:arial;word-spacing: 10pt"><b>FAKULTAS TEKNOLOGI INFORMASI</b></label>
+                <label for="univ" style="font-size:13pt;font-family:arial;word-spacing: 7pt"><b>FAKULTAS TEKNOLOGI INFORMASI</b></label>
                 <ul>
                     <li style="font-size:11pt;">PROGRAM STUDI INFORMATIKA</li>
                     <li style="font-size:11pt;">PROGRAM STUDI SISTEM INFORMASI</li>
@@ -43,7 +43,7 @@
                     <td>{{$nosurat}}/A/FTI2021</td>
                     <td></td>
                     <td></td>
-                    <td><?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
+                    <td>{{$tgl}}</td>
                 </tr>
                 <tr>
                     <td>Hal</td>
@@ -52,7 +52,8 @@
                 </tr>
                 <tr>
                     <td>Lamp</td>
-                    <td>: </td>
+                    <td>:</td>
+                    <td>--</td>
                 </tr>
             </table>
             <div style="padding-top:30px">
@@ -79,7 +80,7 @@
                 </label>
             </div>
             <label for="namattd"><b><u>{{$namattd}}</u></b></label><br>
-            <label for="idttd">{{$idttd}}</label>
+            <label for="idttd"><b>NIK : {{$idttd}}</b></label>
             </div>
         </div>
     </div>

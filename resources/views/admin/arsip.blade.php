@@ -238,7 +238,10 @@
                             ?> btn-sm" style="border-radius:25px"><?php echo $s->status ?></td>
                         <td>
                             <a href="/review?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                            <a href="/download?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
+                            <?php if($s->status=="Accepted"){?>
+                                <a href="/download?type=<?php echo md5('sp')?>&id={{ $s->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
+                            <?php
+                            }?>
                        </td>
                     </tr>
                     @endforeach
@@ -272,7 +275,10 @@
                             ?> btn-sm" style="border-radius:25px"><?php echo $k->status ?></td>
                         <td>
                             <a href="/review?type=<?php echo md5('sket')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <?php if($k->status=="Accepted"){?>
                             <a href="/download?type=<?php echo md5('sket')?>&id={{ $k->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
+                            <?php
+                            }?>
                         </td>
                     </tr>
                     @endforeach
@@ -313,7 +319,10 @@
                             ?> btn-sm" style="border-radius:25px"><?php echo $d->status ?></td>
                         <td>
                             <a href="/review?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <?php if($d->status=="Accepted"){?>
                             <a href="/download?type=<?php echo md5('dft')?>&id={{ $d->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
+                            <?php
+                            }?>
                         </td>
                     </tr>
                     @endforeach
@@ -329,7 +338,14 @@
                                     echo $t->no_surat ."/D/FTI/2021";
                                 }
                             }?></td></td>
-                        <td>{{ $t->pemohon }}</td>
+                        <td>
+                            <?php if(strlen($t->pemohon)>30){ 
+                                    echo substr($t->pemohon, 0, 10)."...";
+                                  }else{
+                                    echo $t->pemohon;
+                                  } 
+                            ?>
+                        </td>
                         <td><?php $tglk = date_create($t->tgl_mulai);
                                 echo date_format( $tglk , 'd M Y') ?></td>
                         <td>
@@ -354,7 +370,10 @@
                             ?> btn-sm" style="border-radius:25px"><?php echo $t->status ?></td>
                         <td>
                             <a href="/review?type=<?php echo md5('sk')?>&id={{ $t->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <?php if($t->status=="Accepted"){?>
                             <a href="/download?type=<?php echo md5('sk')?>&id={{ $t->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
+                            <?php
+                            }?>
                         </td>
                     </tr>
                     @endforeach
@@ -395,7 +414,10 @@
                             ?> btn-sm" style="border-radius:25px"><?php echo $b->status ?></td>
                         <td>
                             <a href="/review?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                            <?php if($b->status=="Accepted"){?>
                             <a href="/download?type=<?php echo md5('ba')?>&id={{ $b->id_surat }}" class="btn btn-sm btn-primary ml-2"><i class="fas fa-download"></i></a>
+                            <?php
+                            }?>
                        </td>
                     </tr>
                     @endforeach

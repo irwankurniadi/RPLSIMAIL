@@ -192,9 +192,13 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         <h5 class="card-title" style="font-family:michroma;font-size:35px">
                         <?php 
                         if($sket==0){
-                            echo "00";
+                            echo "000";
                         }else if($sket<10){
+                            echo "00".$sket;
+                        }else if($sket=10&&$sket<100){
                             echo "0".$sket;
+                        }else {
+                            echo $sket;
                         }
                         ?>
                         </h5>
@@ -208,9 +212,13 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         <h5 class="card-title" style="font-family:michroma;font-size:35px">
                         <?php 
                         if($st==0){
-                            echo "00";
+                            echo "000";
                         }else if($st<10){
+                            echo "00".$st;
+                        }else if($st=10&&$st<100){
                             echo "0".$st;
+                        }else {
+                            echo $st;
                         }
                         ?>
                         </h5>

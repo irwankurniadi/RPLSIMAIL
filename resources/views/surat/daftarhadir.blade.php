@@ -92,7 +92,7 @@
                 </label>
             </div>
             <label for="namattd"><b><u>{{$namattd}}</u></b></label><br>
-            <label for="idttd">{{$idttd}}</label>
+            <label for="idttd"><b>No. Induk : {{$idttd}}</b></label>
             </div>
         </div>
     </div>

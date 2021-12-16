@@ -41,7 +41,7 @@
         </div>
         <div style="padding-left:70px;padding-right:70px;padding-top:80px">
             <label for="desc">Dengan ini menerangkan bahwa saya :</label><br>
-            <table style="padding-left:20px;padding-top:10px">
+            <table style="padding-left:20px;padding-top:30px">
                 <tr>
                     <td style="width:150px">Nama</td>
                     <td>: {{ $nama }}</td>
@@ -56,13 +56,13 @@
                 <p>Demikian Surat Keterangan ini dibuat dengan sebenarnya, untuk dapat dipergunakan sebagaimana mestinya</p>
             </div>
             <div style="padding-top:80px">
-            <label for="ttd">Yogyakarta, <?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?> </label><br>
+            <label for="ttd">Yogyakarta, {{$tgl}} </label><br>
             <label for="jabatan"><b>Dekan,</b></label>
             <div style="padding-top:20px;padding-bottom:20px">
                 <label for="sign"><img src="data:image/png;base64, {!! $qrcode !!}"></label>
             </div>
             <label for="namattd"><b><u>{{ $namattd }}</u></b></label><br>
-            <label for="idttd">{{ $idttd }}</label>
+            <label for="idttd"><b>NIK : {{$idttd}}</b></label>
             </div>
         </div>
     </div>

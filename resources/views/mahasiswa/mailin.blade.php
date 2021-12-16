@@ -193,7 +193,7 @@
                 <tbody>
                     @foreach ($dft as $dft)
                     <tr>
-                        <td><?php echo substr($dft->nama_ttd, 0, 7) ?></td>
+                        <td><?php echo substr($dft->nama_ttd, 0, 8) ?></td>
                         <td><?php $tglk = date_create($dft->tgl);
                                 echo date_format( $tglk , 'd M Y') ?></td>
                         <td>{{ $dft->nama_acara }}</td>
@@ -217,7 +217,7 @@
                     @endforeach
                     @foreach ($ba as $ba)
                     <tr>
-                        <td><?php echo substr($ba->nama_ttd, 0, 7) ?></td>
+                        <td><?php echo substr($ba->nama_ttd, 0, 8) ?></td>
                         <td><?php $tglk = date_create($ba->tgl);
                                 echo date_format( $tglk , 'd M Y') ?></td>
                         <td>{{ $ba->keterangan }}</td>
@@ -241,7 +241,7 @@
                     @endforeach
                     @foreach ($sk as $sk)
                     <tr>
-                        <td><?php echo substr($sk->nama_ttd, 0, 7) ?></td>
+                        <td><?php echo substr($sk->nama_ttd, 0, 8) ?></td>
                         <td><?php $tgls = date_create($sk->tgl_mulai);
                                   $tgle = date_create($sk->tgl_mulai);
                                   if($tgls==$tgle){
@@ -272,7 +272,7 @@
                     @endforeach
                     @foreach ($sp as $sp)
                     <tr>
-                        <td><?php echo substr($sp->nama_ttd, 0, 7) ?></td>
+                        <td><?php echo substr($sp->nama_ttd, 0, 8) ?></td>
                         <td><?php $tglk = date_create($sp->tgl);
                                 echo date_format( $tglk , 'd M Y') ?>
                         </td>
@@ -297,7 +297,7 @@
                     @endforeach
                     @foreach ($sket as $sket)
                     <tr>
-                        <td><?php echo substr($sket->nama_ttd, 0, 7) ?></td>
+                        <td><?php echo substr($sket->nama_ttd, 0, 8) ?></td>
                         <td><?php $tglk = date_create($sket->tgl);
                                 echo date_format( $tglk , 'd M Y') ?></td>
                         <td>Permohonan Surat Mahasiswa Aktif</td>

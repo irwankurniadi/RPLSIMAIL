@@ -58,7 +58,7 @@
                 <table style="padding-left:13%;padding-top:10px">
                 <tr>
                     <td style="width:120px">Hari/tanggal</td>
-                    <td>:</td>
+                    <td style="width:5px">:</td>
                     <td>{{$tgl}}</td>
                 </tr>
                 <tr>
@@ -100,7 +100,7 @@
                 </label>
             </div>
             <label for="namattd"><b><u>{{$namattd}}</u></b></label><br>
-            <label for="idttd">{{$idttd}}</label>
+            <label for="idttd"><b>NIK : {{$idttd}}</b></label>
             </div>
         </div>
     </div>

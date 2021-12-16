@@ -248,7 +248,12 @@ class mailController extends Controller
                 $id = $_SESSION['id'];
             }
             $tgl = $_POST['tgl'];
-            $sem = $_POST['sem'];
+            if($_SESSION['role']=='dosen'){
+                $sem = null;
+            }else {
+                $sem = $_POST['sem'];
+            }
+            
             $maj = $_POST['maj'];
             $fac = $_POST['fac'];
 
@@ -365,8 +370,9 @@ class mailController extends Controller
                 $ttd = $c->nama_ttd;
                 $ttd2 = $c->nama_ttd_2;
             }
-            $idttd2 = substr($ttd2, 0, 7);
-            $nttd = substr($ttd2, 10, 50);
+            $spttd2 = explode(" - ", $ttd2);
+            $idttd2 = $spttd2[0];
+            $nttd = $spttd2[1];
         }
         $namauser = DB::select("SELECT nama FROM users WHERE id_users = '".$id."'");
         foreach($namauser as $nm){
@@ -459,8 +465,9 @@ class mailController extends Controller
         }
         $tglsk = date('dnY');
         #$tglfn = date_format($tgfn, 'dnY');
-        $idttd = substr($ttd, 0, 7);
-        $namattd = substr($ttd, 10, 50);
+        $spttd = explode(" - ", $ttd);
+        $idttd = $spttd[0];
+        $namattd = $spttd[1];
         $string = "Yang Bertanda Tangan : ";
         $qrcode = base64_encode(QrCode::size(100)->errorCorrection('H')->generate("$string\nNama : $namattd\nID : $idttd"));
 
@@ -482,7 +489,7 @@ class mailController extends Controller
                      'maj' => $pro, 
                      'namattd' => $namattd, 
                      'sem' => $sem,
-                     'tgl' => $tanggalIndo, 
+                     'tgl' => $tglIndo, 
                      'idttd' => $idttd];
         }else if($tp==md5('sk')){
             $data = ['nosurat' => $num,

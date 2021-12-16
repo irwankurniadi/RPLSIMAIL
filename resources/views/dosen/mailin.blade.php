@@ -184,7 +184,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th style="width:130px">Signer</th>
-                        <th>Date</th>
+                        <th style="width:130px">Date</th>
                         <th>Event</th>
                         <th>Status</th>
                         <th style="width:150px">Action</th>
@@ -300,7 +300,7 @@
                         <td><?php echo substr($sket->nama_ttd, 0, 7) ?></td>
                         <td><?php $tglk = date_create($sket->tgl);
                                 echo date_format( $tglk , 'd M Y') ?></td>
-                        <td>Permohonan Surat Mahasiswa Aktif</td>
+                        <td>Permohonan Surat Dosen Aktif</td>
                         <td><a type="button" class="btn 
                             <?php 
                             if($sket->status=="Done"){

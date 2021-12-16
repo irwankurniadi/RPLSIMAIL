@@ -222,7 +222,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         <h5 class="card-title" style="font-family:michroma;font-size:35px">
                         <?php 
                         if($csk==0){
-                            echo "00";
+                            echo "000";
                         }else if($csk<10){
                             echo "00".$csk;
                         }else if($csk=10&&$csk<100){
@@ -242,7 +242,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         <h5 class="card-title" style="font-family:michroma;font-size:35px">
                         <?php 
                         if($cdft==0){
-                            echo "00";
+                            echo "000";
                         }else if($cdft<10){
                             echo "00".$cdft;
                         }else if($cdft=10&&$cdft<100){
@@ -262,7 +262,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         <h5 class="card-title" style="font-family:michroma;font-size:35px">
                         <?php 
                         if($cst==0){
-                            echo "00";
+                            echo "000";
                         }else if($cst<10){
                             echo "00".$cst;
                         }else if($cst=10&&$cst<100){
@@ -282,7 +282,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         <h5 class="card-title" style="font-family:michroma;font-size:35px">
                         <?php 
                         if($cba==0){
-                            echo "00";
+                            echo "000";
                         }else if($cba<10){
                             echo "00".$cba;
                         }else if($cba=10&&$cba<100){

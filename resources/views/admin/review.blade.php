@@ -211,7 +211,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 <table class="table table-sm" style="font-family:michroma">
                 <tr>
                     <td width="140px">No.</td>
-                    <td>: 
+                    <td>:</td>
+                    <td>
                         <?php if(!empty($nos)){
                             echo $nos."A/FTI/2021";
                         } else {
@@ -228,45 +229,53 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         }else if($stat=="Declined"){
                             $txt = "text-danger";
                         }
-                        ?></td>
-                    <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
+                        ?>
+                    </td>
+                    <td align="right" style="width:140px">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
                 </tr>
                     <tr>
                         <td>Applicant ID</td>
-                        <td>: <?php echo $ids ?></td>
+                        <td>:</td>
+                        <td><?php echo $ids ?></td>
                         <td></td>
                     </tr>
                 <tr>
                     <td>Mail Type</td>
-                    <td>: Personal Mail</td>
+                    <td>:</td>
+                    <td>Personal Mail</td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Date</td>
-                    <td>: <?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
+                    <td>:</td>
+                    <td><?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Event</td>
-                    <td>: <?php echo $ev ?></td>
+                    <td>:</td>
+                    <td><?php echo $ev ?></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Addressed to</td>
-                    <td>: <?php echo $nm." ".$am ?></td>
+                    <td>:</td>
+                    <td><?php echo $nm." ".$am ?></td>
                     <td></td>
                 </tr>
                 <?php if(!empty($ntd)){?>
                         <tr>
                             <td>Signer</td>
-                            <td>: <?php echo $ntd ?></td>
+                            <td>:</td>
+                            <td><?php echo $ntd ?></td>
                             <td></td>
                         </tr>
                 <?php }
                     if($stat=="Declined"){?>
                         <tr>
                             <td>Decline Statement</td>
-                            <td>: <?php echo $al ?></td>
+                            <td>:</td>
+                            <td><?php echo $al ?></td>
                             <td></td>
                         </tr>
                 <?php
@@ -290,7 +299,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 <table class="table table-sm" style="font-family:michroma">
                 <tr>
                     <td width="140px">No.</td>
-                    <td>: 
+                    <td>:</td>
+                    <td>
                         <?php if(!empty($nos)){
                             echo $nos."/C/FTI/2021";
                         } else {
@@ -308,42 +318,49 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                             $txt = "text-danger";
                         }
                         ?></td>
-                    <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
+                    <td align="right" style="width:140px">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
                 </tr>
-                    <tr>
-                        <td>Applicant ID</td>
-                        <td>: <?php echo $ids ?></td>
-                        <td></td>
-                    </tr>
+                <tr>
+                    <td>Applicant ID</td>
+                    <td>:</td>
+                    <td><?php echo $ids ?></td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td>Mail Type</td>
-                    <td>: Attendance Mail</td>
+                    <td>:</td>
+                    <td>Attendance Mail</td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Event</td>
-                    <td>: <?php echo $ev ?></td>
+                    <td>:</td>
+                    <td><?php echo $ev ?></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Date</td>
-                    <td>: <?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
+                    <td>:</td>
+                    <td><?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Time</td>
-                    <td>: <?php echo $time." WIB"?></td>
+                    <td>:</td>
+                    <td><?php echo $time." WIB"?></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Guest</td>
-                    <td>: <?php echo $pem ?></td>
+                    <td>:</td>
+                    <td><?php echo $pem ?></td>
                     <td></td>
                 </tr>
             <?php if(!empty($ntd)){?>
                 <tr>
                     <td>Signer</td>
-                    <td>: <?php echo $ntd ?></td>
+                    <td>:</td>
+                    <td><?php echo $ntd ?></td>
                     <td></td>
                 </tr>
             <?php 
@@ -351,7 +368,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
             if($stat=="Declined"){?>
                 <tr>
                     <td>Decline Statement</td>
-                    <td>: <?php echo $al ?></td>
+                    <td>:</td>
+                    <td><?php echo $al ?></td>
                     <td></td>
                 </tr>
             <?php
@@ -374,7 +392,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 <table class="table table-sm" style="font-family:michroma">
                 <tr>
                     <td width="140px">No.</td>
-                    <td>: 
+                    <td  width="10px">:</td>
+                    <td>
                         <?php if(!empty($nos)){
                             echo $nos."/B/FTI/2021";
                         } else {
@@ -392,38 +411,44 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                             $txt = "text-danger";
                         }
                         ?></td>
-                    <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
+                    <td align="right" style="width:140px">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
                 </tr>
                     <tr>
                         <td>Applicant ID</td>
-                        <td>: <?php echo $ids ?></td>
+                        <td>:</td>
+                        <td><?php echo $ids ?></td>
                         <td></td>
                     </tr>
                 <tr>
                     <td>Mail Type</td>
-                    <td>: Activity Mail</td>
+                    <td>:</td>
+                    <td>Activity Mail</td>
                     <td></td>
                 </tr>
                 
                 <tr>
                     <td>Date</td>
-                    <td>: <?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
+                    <td>:</td>
+                    <td><?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Major</td>
-                    <td>: <?php echo $pro ?></td>
+                    <td>:</td>
+                    <td><?php echo $pro ?></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Faculty</td>
-                    <td>: <?php echo $fak ?></td>
+                    <td>:</td>
+                    <td><?php echo $fak ?></td>
                     <td></td>
                 </tr>
                 <?php if(!empty($ntd)){?>
                     <tr>
                         <td>Signer</td>
-                        <td>: <?php echo $ntd ?></td>
+                        <td>:</td>
+                        <td><?php echo $ntd ?></td>
                         <td></td>
                     </tr>
                 <?php 
@@ -431,7 +456,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     if($stat=="Declined"){?>
                         <tr>
                             <td>Decline Statement</td>
-                            <td>: <?php echo $al ?></td>
+                            <td>:</td>
+                            <td><?php echo $al ?></td>
                             <td></td>
                         </tr>
                 <?php
@@ -456,7 +482,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     <table class="table table-sm" style="font-family:michroma">
                     <tr>
                         <td width="140px">No.</td>
-                        <td>: 
+                        <td>:</td>
+                        <td>
                             <?php if(!empty($nos)){
                                 echo $nos."/E/FTI/2021";
                             } else {
@@ -474,49 +501,57 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                                 $txt = "text-danger";
                             }
                             ?></td>
-                        <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
+                        <td align="right" style="width:140px">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
                     </tr>
-                        <tr>
-                            <td>Applicant ID</td>
-                            <td>: <?php echo $ids ?></td>
-                            <td></td>
-                        </tr>
+                    <tr>
+                        <td>Applicant ID</td>
+                        <td>:</td>
+                        <td><?php echo $ids ?></td>
+                        <td></td>
+                    </tr>
                     <tr>
                         <td>Mail Type</td>
-                        <td>: News Mail</td>
+                        <td>:</td>
+                        <td>News Mail</td>
                         <td></td>
                     </tr>
                     
                     <tr>
                         <td>Date</td>
-                        <td>: <?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
+                        <td>:</td>
+                        <td><?php $tg = date_create($tgl); echo date_format($tg, 'd F Y'); ?></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Theme</td>
-                        <td>: <?php echo $tem ?></td>
+                        <td>:</td>
+                        <td><?php echo $tem ?></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Event</td>
-                        <td>: <?php echo $na ?></td>
+                        <td>:</td>
+                        <td><?php echo $na ?></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Location</td>
-                        <td>: <?php echo $lok ?></td>
+                        <td>:</td>
+                        <td><?php echo $lok ?></td>
                         <td></td>
                     </tr>
                     <?php if(!empty($ntd)){?>
                     <tr>
                         <td>Signer</td>
-                        <td>: <?php echo $ntd ?></td>
+                        <td>:</td>
+                        <td><?php echo $ntd ?></td>
                         <td></td>
                     </tr>
                     <?php if(!empty($ntd2)){?>
                     <tr>
                         <td>Guest Signer</td>
-                        <td>: <?php echo $ntd2 ?></td>
+                        <td>:</td>
+                        <td><?php echo $ntd2 ?></td>
                         <td></td>
                     </tr>
                     
@@ -525,7 +560,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 if($stat=="Declined"){?>
                     <tr>
                         <td>Decline Statement</td>
-                        <td>: <?php echo $al ?></td>
+                        <td>:</td>
+                        <td><?php echo $al ?></td>
                         <td></td>
                     </tr>
                 <?php
@@ -550,7 +586,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     <table class="table table-sm" style="font-family:michroma">
                     <tr>
                         <td width="140px">No.</td>
-                        <td>: 
+                        <td>:</td>
+                        <td>
                             <?php if(!empty($nos)){
                                 echo $nos."/D/FTI/2021";
                             } else {
@@ -568,26 +605,30 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                                 $txt = "text-danger";
                             }
                             ?></td>
-                        <td align="right">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
+                        <td align="right" style="width:140px">Status : <label class="<?php echo $txt ?>"><?php echo $stat ?></label></td>
                     </tr>
                     <tr>
                         <td>Applicant</td>
-                        <td>: <?php echo $ph ?></td>
+                        <td>:</td>
+                        <td><?php echo $ph ?></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Assign Task to</td>
-                        <td>: <?php echo $ids ?></td>
+                        <td>:</td>
+                        <td><?php echo $ids ?></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Mail Type</td>
-                        <td>: Assignment Mail</td>
+                        <td>:</td>
+                        <td>Assignment Mail</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Date</td>
-                        <td>: <?php 
+                        <td>:</td>
+                        <td><?php 
                         $tg = date_create($tglm); 
                         $tgs = date_create($tgls); 
                         if($tg==$tgs){
@@ -601,23 +642,27 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     </tr>
                     <tr>
                         <td>Description</td>
-                        <td>: <?php echo $ket ?></td>
+                        <td>:</td>
+                        <td><?php echo $ket ?></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Event</td>
-                        <td>: <?php echo $acr ?></td>
+                        <td>:</td>
+                        <td><?php echo $acr ?></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Location</td>
-                        <td>: <?php echo $lok ?></td>
+                        <td>:</td>
+                        <td><?php echo $lok ?></td>
                         <td></td>
                     </tr>
                     <?php if(!empty($ntd)){?>
                         <tr>
                             <td>Signer</td>
-                            <td>: <?php echo $ntd ?></td>
+                            <td>:</td>
+                            <td><?php echo $ntd ?></td>
                             <td></td>
                         </tr>
                     <?php 
@@ -625,7 +670,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     if($stat=="Declined"){?>
                         <tr>
                             <td>Decline Statement</td>
-                            <td>: <?php echo $al ?></td>
+                            <td>:</td>
+                            <td><?php echo $al ?></td>
                             <td></td>
                         </tr>
                     <?php }
@@ -634,13 +680,14 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 <tr>
                 <?php if($stat=="On Process"){ ?>
                     <td>Action</td>
-                    <td> :
-                            <button type="button" class="btn btn-success btn-sm ml-2 mr-2" title="Accept" data-toggle="modal" data-target="#accModal">
-                            <i class="fas fa-check-square"></i>
-                            </button>
-                            <div class="modal fade" id="accModal" tabindex="-1" role="dialog" aria-labelledby="accModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
+                    <td>:</td>
+                    <td>
+                        <button type="button" class="btn btn-success btn-sm mr-2" title="Accept" data-toggle="modal" data-target="#accModal">
+                        <i class="fas fa-check-square"></i>
+                        </button>
+                        <div class="modal fade" id="accModal" tabindex="-1" role="dialog" aria-labelledby="accModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="accModalLabel">Accept Mail</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -648,7 +695,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                                     </button>
                                 </div>
                                 <div class="modal-body" id="#mod">
-                                    <form method="POST" action="/accept?type=<?php echo md5("$rev")?>&id={{ $c->id_surat }}">
+                                <form method="POST" action="/accept?type=<?php echo md5("$rev")?>&id={{ $c->id_surat }}">
                                     @csrf
                                     <div class="input-group mb-3">
                                         <div class="select" style="width:100%">
@@ -668,7 +715,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                                     <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                                     <input type="submit" class="btn btn-danger btn-sm" value="Submit">
                                     </form>
-                                </div>
+                                    </div>
                                 </div>
                             </div>
                             </div>
@@ -704,6 +751,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                         </div>
                     </td>
                     <?php }else {?>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td>
