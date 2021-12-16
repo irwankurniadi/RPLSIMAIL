@@ -632,12 +632,9 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     }
                     ?>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <div class="mr-2" style="float:right">
-                        <a href="javascript:history.go(-1)"  class="btn btn-sm btn-dark">BACK</a>
-                        <?php if($stat=="On Process"){ ?>
+                <?php if($stat=="On Process"){ ?>
+                    <td>Action</td>
+                    <td> :
                             <button type="button" class="btn btn-success btn-sm ml-2 mr-2" title="Accept" data-toggle="modal" data-target="#accModal">
                             <i class="fas fa-check-square"></i>
                             </button>
@@ -655,8 +652,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                                     @csrf
                                     <div class="input-group mb-3">
                                         <div class="select" style="width:100%">
-                                            <select class="custom-select selopt" name="ac">
-                                                <option selected>Signer?</option>
+                                            <select class="custom-select selopt" name="ac" required>
+                                                <option value="">Signer?</option>
                                                 <option value="984E249 - Budi Susanto, S.Kom., M.T.">984E249 - Budi Susanto, S.Kom., M.T.</option>
                                                 <option value="004E289 - Restyandito, S.Kom., MSIS.,Ph.D.">004E289 - Restyandito, S.Kom., MSIS.,Ph.D.</option>
                                             </select>
@@ -700,9 +697,21 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                                 </div>
                             </div>
                             </div>
-                        <?php } ?>
+                    </td>
+                    <td>
+                        <div class="mr-2" style="float:right">
+                        <a href="javascript:history.go(-1)"  class="btn btn-outline-primary btn-sm">BACK</a>
                         </div>
                     </td>
+                    <?php }else {?>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <div class="mr-2" style="float:right">
+                                <a href="javascript:history.go(-1)"  class="btn btn-outline-primary btn-sm">BACK</a>
+                            </div>
+                        </td>
+                    <?php } ?>
                 </tr>
             </table>
         </div>
@@ -733,7 +742,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 $(".guestsign").remove();
                 $(".selopt").prop('disabled', false);
             } else {
-                $(".signer").append('<div class="form-inline guestsign"><input type="text" class="form-control ml-1" name="sn" id="sn" style="width:222px" placeholder="Signer\'s Name"><input type="text" class="form-control ml-2" name="cmp" id="cmp" style="width:230px" placeholder="Company"></div></div>');
+                $(".signer").append('<div class="form-inline guestsign"><input type="text" class="form-control ml-1" name="idsn" id="idsn" style="width:222px" placeholder="Signer\'s ID"><input type="text" class="form-control ml-2" name="nmsn" id="nmsn" style="width:230px" placeholder="Signer\'s Name"></div></div>');
                 <?php if($rev=="b_acara"){ ?>
                     $(".selopt").prop('disabled', false);
                 <?php }else { ?>

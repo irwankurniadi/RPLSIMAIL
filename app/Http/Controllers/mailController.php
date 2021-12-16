@@ -85,10 +85,15 @@ class mailController extends Controller
             $nums = $c->nosurat;
         }
         $nobaru = $nums+1;
-        $ttd = $_POST['ac'];
+
+        if(!empty($_POST['ac'])){
+            $ttd = $_POST['ac'];
+        }else {
+            $ttd = $_POST['idsn']." - ".$_POST['nmsn'];
+        }
         
         if($srt=="b_acara"){
-            $sn = $_POST['sn']." - ".$_POST['cmp'];
+            $sn = $_POST['idsn']." - ".$_POST['nmsn'];
             DB::update(
                 "UPDATE $srt SET 
                 status = 'Accepted', 
@@ -216,9 +221,10 @@ class mailController extends Controller
             $en = $_POST['nm_e'];
             $et = $_POST['tm_e'];
             $lok = $_POST['lok'];
+            $gs = $_POST['gs'];
             $desc = $_POST['desc'];
 
-            DB::insert("INSERT INTO $dbs (id_user, tgl, tema, nama_acara, tempat, keterangan, status) values (?,?,?,?,?,?,?)", [$id, "$tgl", "$et", $en, "$lok", "$desc",'On Process']);
+            DB::insert("INSERT INTO $dbs (id_user, tgl, tema, nama_acara, tempat, pembicara, keterangan, status) values (?,?,?,?,?,?,?,?)", [$id, "$tgl", "$et", $en, "$lok", "$gs", "$desc",'On Process']);
         }else if($dbs=="dft_hadir"){
             if($_SESSION['role']=='admin'){
                 $id = $_POST['id'];
@@ -263,7 +269,12 @@ class mailController extends Controller
 
             DB::insert("INSERT INTO $dbs (id_user, pemohon, keterangan, tgl_mulai, tgl_sls, acara, tempat, status) values (?,?,?,?,?,?,?,?)", [$id, "$req", "$ad", "$st","$et", $ev, "$lok", 'On Process']);
         }
-        return redirect('/mailout');
+        if($_SESSION['role']=="admin"){
+            return redirect('/mailin');
+        }else {
+            return redirect('/mailout');
+        }
+        
     }
 
     function download(){
@@ -296,10 +307,7 @@ class mailController extends Controller
             $view = "beritaacara";
         }
         $content = DB::select("SELECT * FROM $rev WHERE id_surat = '".$_GET['id']."'");
-        $namauser = DB::select("SELECT nama FROM users WHERE id_users = '".$_SESSION['id']."'");
-        foreach($namauser as $nm){
-            $nama = $nm->nama;
-        }
+        
         if($tp==md5('sp')){
             foreach($content as $c){
                 $no = $c->no_surat;
@@ -337,7 +345,7 @@ class mailController extends Controller
             foreach($content as $c){
                 $no = $c->no_surat;
                 $id = $c->id_user;
-                $tg = $c->tgl;
+                $tgl = $c->tgl;
                 $pemb = $c->pembicara;
                 $ac = $c->nama_acara;
                 $jam = $c->jam;
@@ -345,10 +353,55 @@ class mailController extends Controller
                 $ttd = $c->nama_ttd;
             }
         }else if($tp==md5('ba')){
-            $no = 1;
-            $ttd = "72190317 - Irwan Kurniadi";
+            foreach($content as $c){
+                $no = $c->no_surat;
+                $id = $c->id_user;
+                $tgl = $c->tgl;
+                $pemb = $c->pembicara;
+                $ac = $c->nama_acara;
+                $tema = $c->tema;
+                $ket = $c->keterangan;
+                $lok = $c->tempat;
+                $ttd = $c->nama_ttd;
+                $ttd2 = $c->nama_ttd_2;
+            }
+            $idttd2 = substr($ttd2, 0, 7);
+            $nttd = substr($ttd2, 10, 50);
         }
-        
+        $namauser = DB::select("SELECT nama FROM users WHERE id_users = '".$id."'");
+        foreach($namauser as $nm){
+            $nama = $nm->nama;
+        }
+        $tgindo = date_create($tgl);
+        $hari = date_format($tgindo, 'l');
+        $tglA = date_format($tgindo, 'd');
+        $tglY = date_format($tgindo, 'Y');
+        $bln = date_format($tgindo, 'F');
+        switch ($hari) {
+            case"Sunday":$hari="Minggu";break;
+            case"Monday":$hari="Senin";break;
+            case"Tuesday":$hari="Selasa";break;
+            case"Wednesday":$hari="Rabu";break;
+            case"Thursday":$hari="Kamis";break;
+            case"Friday":$hari="Jumat";break;
+            case"Saturday":$hari="Sabtu";break;
+        }
+        switch ($bln) {
+            case"January":$bln="Januari";break;
+            case"February":$bln="Februari";break;
+            case"March":$bln="Maret";break;
+            case"April":$bln="April";break;
+            case"May":$bln="Mei";break;
+            case"June":$bln="Juni";break;
+            case"July":$bln="Juli";break;
+            case"August":$bln="Agustus";break;
+            case"September":$bln="September";break;
+            case"October":$bln="Oktober";break;
+            case"November":$bln="November";break;
+            case"December":$bln="Desember";break;
+        }
+        $tanggalIndo = $hari.", ".$tglA." ".$bln." ".$tglY;
+        $tglIndo = $tglA." ".$bln." ".$tglY;
         if($no<10){
             $num = "00".$no;
         }else if($no=10&&$no<100){
@@ -370,7 +423,7 @@ class mailController extends Controller
                      'almitra' => $almit, 
                      'namattd' => $namattd, 
                      'isi' => $isi,
-                     'tgl' => $tgl, 
+                     'tgl' => $tglIndo, 
                      'idttd' => $idttd];
         }else if($tp==md5('sket')){
             $data = ['nosurat' => $num,
@@ -381,7 +434,7 @@ class mailController extends Controller
                      'maj' => $pro, 
                      'namattd' => $namattd, 
                      'sem' => $sem,
-                     'tgl' => $tgl, 
+                     'tgl' => $tanggalIndo, 
                      'idttd' => $idttd];
         }else if($tp==md5('sk')){
             $data = ['nosurat' => $num,
@@ -400,12 +453,25 @@ class mailController extends Controller
             $data = ['nakeg' => $ac,
                      'pemb' => $pemb,
                      'time' => $jam, 
-                     'tgl' => $tg, 
+                     'tgl' => $tanggalIndo, 
                      'namattd' => $namattd, 
                      'lok' => $lok, 
                      'idttd' => $idttd];
         }else if($tp==md5('ba')){
-            $data = ['no' => $no];
+            $data = ['nosurat' => $num,
+                     'acara' => $ac,
+                     'tema' => $tema,
+                     'guest' => $pemb,
+                     'hari' => $hari,
+                     'tgl' => $tanggalIndo,
+                     'tglA' => $tglA,
+                     'bln' => $bln,
+                     'tglY' => $tglY,
+                     'ttddek' => $namattd, 
+                     'lok' => $lok, 
+                     'ket' => $ket,
+                     'cmp' => $idttd2,
+                     'ttdgs' => $nttd];
         }
 
         return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView("/surat/$view", $data, compact('qrcode'))->stream($filename."_".$num.$tglsk.'.pdf');

@@ -212,6 +212,10 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 <input type="text" class="form-control" name="lok" id="lok" placeholder="Event Location">
             </div>
             <div class="form-group">
+                <label for="date">Guest</label>
+                <input type="text" class="form-control" name="gs" id="gs" placeholder="Guest Name">
+            </div>
+            <div class="form-group">
                 <label for="date">Description</label>
                 <input type="text" class="form-control" name="desc" id="desc" placeholder="Letter Description">
             </div>
