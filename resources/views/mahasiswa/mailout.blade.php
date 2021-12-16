@@ -186,7 +186,7 @@
                         <th>No. </th>
                         <th>Mail Type</th>
                         <th>Date</th>
-                        <th>Case</th>
+                        <th>Event</th>
                         <th>Status</th>
                         <th style="width:150px">Action</th>
                     </tr>

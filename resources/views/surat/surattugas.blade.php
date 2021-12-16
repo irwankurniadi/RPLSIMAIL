@@ -59,19 +59,7 @@
                 <tr>
                     <td style="width:120px">Hari/tanggal</td>
                     <td>:</td>
-                    <td>
-                        <?php
-                        $tglml = date_create($tglm);
-                        $tglsl = date_create($tgls);
-                        if($tglml == $tglsl){
-                            echo date_format($tglml, 'l, d F Y');
-                        }else {
-                            
-                            echo date_format($tglml, 'l')." - ".date_format($tglsl, 'l').
-                            ", ".date_format($tglml, 'd')." - ".date_format($tglsl, 'd F Y');
-                        }
-                        ?>
-                    </td>
+                    <td>{{$tgl}}</td>
                 </tr>
                 <tr>
                     <td>Tema</td>
@@ -87,7 +75,24 @@
                 <p style="padding-top:10px">Demikian Surat Tugas ini dibuat untuk dapat dipergunakan sebagaimana perlunya</p>
             </div>
             <div style="padding-top:80px">
-            <label for="ttd">Yogyakarta, <?php echo date("d F Y") ?></label><br>
+            <label for="ttd">Yogyakarta, 
+                <?php $blnsk = date("F"); $tglsk = date("d"); $thsk = date("Y");
+                    switch ($blnsk) {
+                        case"January":$blnsk="Januari";break;
+                        case"February":$blnsk="Februari";break;
+                        case"March":$blnsk="Maret";break;
+                        case"April":$blnsk="April";break;
+                        case"May":$blnsk="Mei";break;
+                        case"June":$blnsk="Juni";break;
+                        case"July":$blnsk="Juli";break;
+                        case"August":$blnsk="Agustus";break;
+                        case"September":$blnsk="September";break;
+                        case"October":$blnsk="Oktober";break;
+                        case"November":$blnsk="November";break;
+                        case"December":$blnsk="Desember";break;
+                    }
+                    echo $tglsk." ".$blnsk." ".$thsk;
+                ?></label><br>
             <label for="jabatan"><b>Dekan,</b></label>
             <div style="padding-top:60px;padding-bottom:20px">
                 <label for="sign">

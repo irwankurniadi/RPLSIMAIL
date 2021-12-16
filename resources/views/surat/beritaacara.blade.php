@@ -48,13 +48,15 @@
                 <p style="padding-top:5px">Demikian Berita Acara ini dibuat dengan sebenarnya, untuk dapat dipergunakan sebagaimana mestinya.</p>
         </div>
     </div>
-    <div style="padding-top:80px;padding-left:70px;padding-right:70px;text-align:center;">
-        <label for="ttd">Yogyakarta, {{$tglA." ".$bln." ".$tglY}}</label><br>
-        <label for="mengetahui"><b>Mengetahui</b> <br></label>
+    <div style="padding-top:50px;padding-left:70px;padding-right:70px;text-align:center;">
+        <label for="ttd">Yogyakarta, {{$tglA." ".$bln." ".$tglY}}</label><br><br>
+        <label style="padding-top:25px">Mengetahui<br></label>
         <table style="width:100%;text-align:center">
             <tr>
-                <td >Dekan,</td>
-                <td >Perwakilan<br>{{$cmp}}</td>
+               
+                <td ><b>Dekan,</b></td>
+                <td ><b>Perwakilan<br>{{$cmp}}</b></td>
+                
             </tr>
             <tr>
                 <td style="width:50%">

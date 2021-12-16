@@ -372,11 +372,50 @@ class mailController extends Controller
         foreach($namauser as $nm){
             $nama = $nm->nama;
         }
-        $tgindo = date_create($tgl);
-        $hari = date_format($tgindo, 'l');
-        $tglA = date_format($tgindo, 'd');
-        $tglY = date_format($tgindo, 'Y');
-        $bln = date_format($tgindo, 'F');
+
+        if($tp==md5('sk')){
+            $tglmindo = date_create($tglm);
+            $hari = date_format($tglmindo, 'l');
+            $tglA = date_format($tglmindo, 'd');
+            $tglY = date_format($tglmindo, 'Y');
+            $bln = date_format($tglmindo, 'F');
+            $tglsindo = date_create($tgls);
+            $harisl = date_format($tglsindo, 'l');
+            $tglAs = date_format($tglsindo, 'd');
+            $tglYs = date_format($tglsindo, 'Y');
+            $blns = date_format($tglsindo, 'F');
+            switch ($harisl) {
+                case"Sunday":$harisl="Minggu";break;
+                case"Monday":$harisl="Senin";break;
+                case"Tuesday":$harisl="Selasa";break;
+                case"Wednesday":$harisl="Rabu";break;
+                case"Thursday":$harisl="Kamis";break;
+                case"Friday":$harisl="Jumat";break;
+                case"Saturday":$harisl="Sabtu";break;
+            }
+            switch ($blns) {
+                case"January":$blns="Januari";break;
+                case"February":$blns="Februari";break;
+                case"March":$blns="Maret";break;
+                case"April":$bln="April";break;
+                case"May":$blns="Mei";break;
+                case"June":$blns="Juni";break;
+                case"July":$blns="Juli";break;
+                case"August":$blns="Agustus";break;
+                case"September":$blns="September";break;
+                case"October":$blns="Oktober";break;
+                case"November":$blns="November";break;
+                case"December":$blns="Desember";break;
+            }
+            $tanggalslsIndo = $harisl.", ".$tglAs." ".$blns." ".$tglYs;
+        }else{
+            $tgindo = date_create($tgl);
+            $hari = date_format($tgindo, 'l');
+            $tglA = date_format($tgindo, 'd');
+            $tglY = date_format($tgindo, 'Y');
+            $bln = date_format($tgindo, 'F');
+        }
+        
         switch ($hari) {
             case"Sunday":$hari="Minggu";break;
             case"Monday":$hari="Senin";break;
@@ -402,6 +441,15 @@ class mailController extends Controller
         }
         $tanggalIndo = $hari.", ".$tglA." ".$bln." ".$tglY;
         $tglIndo = $tglA." ".$bln." ".$tglY;
+
+        if($tp==md5('sk')){
+            if($tanggalIndo == $tanggalslsIndo){
+                $tglST = $tanggalIndo;
+            }else{
+                $tglST = $hari." - ".$harisl.", ".$tglA." - ".$tglAs." ".$blns." ".$tglYs;
+            }
+        }
+
         if($no<10){
             $num = "00".$no;
         }else if($no=10&&$no<100){
@@ -443,11 +491,10 @@ class mailController extends Controller
                      'role' => $_SESSION['role'],
                      'id' => $id, 
                      'ket' => $ket, 
-                     'tglm' => $tglm, 
+                     'tgl' => $tglST, 
                      'namattd' => $namattd, 
                      'acara' => $ac,
                      'lok' => $lok,
-                     'tgls' => $tgls, 
                      'idttd' => $idttd];
         }else if($tp==md5('dft')){
             $data = ['nakeg' => $ac,

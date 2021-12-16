@@ -195,7 +195,7 @@
                         <th>No. </th>
                         <th style="width:140px">Applicant ID</th>
                         <th style="width:120px">Date</th>
-                        <th>Case</th>
+                        <th>Event</th>
                         <th>Status</th>
                         <th style="width:150px">Action</th>
                     </tr>
