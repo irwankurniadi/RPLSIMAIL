@@ -183,20 +183,20 @@
             <table class="table table-bordered text-center">
                 <thead class="thead-dark">
                     <tr>
-                        <th style="width:130px">Signer</th>
+                        <th style="width:280px">Signer</th>
                         <th style="width:130px">Date</th>
                         <th>Event</th>
-                        <th>Status</th>
+                        <th style="width:100px">Status</th>
                         <th style="width:150px">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($dft as $dft)
                     <tr>
-                        <td><?php echo substr($dft->nama_ttd, 0, 7) ?></td>
+                        <td><?php $dfttd = explode(" - ", $dft->nama_ttd); print_r($dfttd[1]) ?></td>
                         <td><?php $tglk = date_create($dft->tgl);
                                 echo date_format( $tglk , 'd M Y') ?></td>
-                        <td>{{ $dft->keterangan }}</td>
+                        <td>{{ $dft->nama_acara }}</td>
                         <td><a type="button" class="btn 
                             <?php 
                             if($dft->status=="Done"){
@@ -217,7 +217,7 @@
                     @endforeach
                     @foreach ($ba as $ba)
                     <tr>
-                        <td><?php echo substr($ba->nama_ttd, 0, 7) ?></td>
+                        <td><?php $battd = explode(" - ", $ba->nama_ttd); print_r($battd[1]) ?></td>
                         <td><?php $tglk = date_create($ba->tgl);
                                 echo date_format( $tglk , 'd M Y') ?></td>
                         <td>{{ $ba->keterangan }}</td>
@@ -241,7 +241,7 @@
                     @endforeach
                     @foreach ($sk as $sk)
                     <tr>
-                        <td><?php echo substr($sk->nama_ttd, 0, 7) ?></td>
+                        <td><?php $skttd = explode(" - ", $sk->nama_ttd); print_r($skttd[1]) ?></td>
                         <td><?php $tgls = date_create($sk->tgl_mulai);
                                   $tgle = date_create($sk->tgl_mulai);
                                   if($tgls==$tgle){
@@ -272,7 +272,7 @@
                     @endforeach
                     @foreach ($sp as $sp)
                     <tr>
-                        <td><?php echo substr($sp->nama_ttd, 0, 7) ?></td>
+                        <td><?php $spttd = explode(" - ", $sp->nama_ttd); print_r($spttd[1]) ?></td>
                         <td><?php $tglk = date_create($sp->tgl);
                                 echo date_format( $tglk , 'd M Y') ?>
                         </td>
@@ -297,7 +297,7 @@
                     @endforeach
                     @foreach ($sket as $sket)
                     <tr>
-                        <td><?php echo substr($sket->nama_ttd, 0, 7) ?></td>
+                        <td><?php $skettd = explode(" - ", $sket->nama_ttd); print_r($skettd[1]) ?></td>
                         <td><?php $tglk = date_create($sket->tgl);
                                 echo date_format( $tglk , 'd M Y') ?></td>
                         <td>Permohonan Surat Dosen Aktif</td>
